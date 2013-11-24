@@ -1,0 +1,58 @@
+<nav class="navbar navbar-inverse" role="navigation">
+	<div class="navbar-inner">
+		<a class="navbar-brand">Schlag den Prof</a>
+
+		<form class="navbar-form navbar-left form-inline">
+			<div class="btn-group" id="beamer-btn-group">
+				<button class="btn" name="screensaver"><span
+						class="glyphicon glyphicon-heart"></span></button>
+				<button class="btn" name="logo"><span
+						class="glyphicon glyphicon-picture"></span></button>
+				<button class="btn" name="scores"><span
+						class="glyphicon glyphicon-list"></span></button>
+				<button class="btn" name="gameframe"><span
+					  class="glyphicon glyphicon-search"></span></button>
+			</div>
+		</form>
+	</div>
+</nav>
+
+<div class="container">
+
+    <div id="start">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Namen</div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="start-name-stud">Professor</label>
+                                <input class="form-control" id="start-name-prof"
+                                    placeholder="Professor">
+                            </div>
+                            <div class="form-group">
+                                <label for="start-name-stud">Student</label>
+                                <input class="form-control" id="start-name-stud"
+                                    placeholder="Student">
+                            </div>
+                            <button class="btn btn-default"
+                                id="start-name-submit">Ändern</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Spiele</div>
+        <div class="panel-body" id="games"></div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" data-bind=":activegame.name"></div>
+        <div class="panel-body" id="mod-control"></div>
+    </div>
+
+</div>

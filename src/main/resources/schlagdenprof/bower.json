@@ -1,0 +1,13 @@
+{
+	"name": "Schlag den Prof",
+	"version": "2.0.0",
+	"dependencies": {
+		"requirejs": "2.1.9",
+		"jquery": "2.0.3",
+		"mustache" : "latest",
+		"requirejs-text" : "latest",
+		"requirejs-mustache": "latest",
+		"diff" : "https://github.com/flitbit/diff.git"
+
+	}
+}

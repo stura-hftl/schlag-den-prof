@@ -1,0 +1,47 @@
+#gameframe .header h1 {
+    font-size: 2em;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#gameframe .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#gameframe .footer table {
+    width: 100%;
+}
+
+#gameframe .footer .side {
+    text-align: center;
+    width: 20%;
+}
+
+#gameframe .footer .center {
+    text-align: center;
+    width: 60%;
+}
+
+#gameframe .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#gameframe .content .middle {
+    text-align: center;
+    padding-top: 10%;
+
+
+}
+
+#gameframe .content .large {
+    font-weight: bold;
+    font-size: 6em;
+
+}

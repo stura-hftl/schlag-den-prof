@@ -1,0 +1,22 @@
+<div class="fullscreen" id="gameframe">
+    <div class="content" id="game-content"></div>
+
+    <div class="header">
+        <h1 data-bind=":activegame.name"></h1>
+    </div>
+
+
+    <div class="footer">
+        <table>
+            <tr>
+                <td class="side" data-bind=":score.total.prof"></td>
+                <td class="center" rowspan="2"><img src="img/schlagdenprof_logo_small.png"></td>
+                <td class="side" data-bind=":score.total.stud"></td>
+            </tr>
+            <tr>
+                <td class="side" data-bind="names.prof"></td>
+                <td class="side" data-bind="names.stud"></td>
+            </tr>
+        </table>
+    </div>
+</div>

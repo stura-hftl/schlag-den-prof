@@ -1,0 +1,44 @@
+
+<table class="table table-striped table-bordered table-hover">
+	<thead>
+		<tr>
+			<th>
+				<button class="btn btn-xs {{#idle}}btn-danger{{/idle}}"
+					data-activate-game="">
+					<span class="glyphicon glyphicon-stop"></span>
+				</button>
+			</th>
+			<th style="text-align: center">#</th>
+			<th>Name</th>
+			<th>Typ</th>
+			<th>Gewinner</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#games}}
+			<tr>
+				<td>
+					<button class="btn btn-xs {{#active}}btn-success{{/active}}"
+						data-activate-game="{{num}}">
+						<span class="glyphicon glyphicon-play"></span>
+					</button>
+				</td>
+				<td style="text-align: center">{{num}}</td>
+				<td>{{name}}</td>
+				<td>{{type}}</td>
+				<td>
+					<div class="btn-group" data-game="{{num}}">
+						<button class="btn btn-xs {{#winNone}}btn-danger{{/winNone}}"
+							name="none"><span class="glyphicon glyphicon-remove"></span></button>
+
+						<button class="btn btn-xs {{#winProf}}btn-success{{/winProf}}"
+							name="prof">Professor</button>
+
+						<button class="btn btn-xs {{#winStud}}btn-success{{/winStud}}"
+							name="stud">Student</button>
+					</div>
+				</td>
+			</tr>
+		{{/games}}
+	</tbody>
+</table>

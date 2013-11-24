@@ -1,0 +1,9 @@
+
+/target/
+
+/.classpath
+/.project
+/.settings
+
+/src/main/resources/schlagdenprof/bower_components
+/src/main/resources/schlagdenprof/.idea

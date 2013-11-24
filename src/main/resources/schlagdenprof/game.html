@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Schlag den Prof</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<style type="text/css">
+
+		html,body { height: 100%; margin: 0px; padding: 0px; }
+
+		.fullscreen {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: inherit;
+			height: 100%;
+			display: none;
+		}
+
+		#loading, #screensaver {
+			text-align: center;
+			padding-top: 100px;
+		}
+
+		#loading {
+			display: none;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="loading" class="fullscreen" style="background: black">
+		<img src="img/schlagdenprof_logo_ohnetransp.png">
+	</div>
+	<div id="screensaver" class="fullscreen" style="background: black; display: block;">
+		<img src="img/fatal.gif">
+	</div>
+	<script data-main="js/main" src="bower_components/requirejs/require.js"></script>
+</body>
+</html>

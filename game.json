@@ -1,0 +1,46 @@
+{
+    "names" : {
+        "prof" : "Prof. X",
+        "stud" : "Senior College Student"
+    },
+	"beamer":{
+		"show" : "logo"
+	},
+    "games": {
+        "1": {
+            "name": "Kabelschlaufen werfen",
+            "type": "simple_count"
+        },
+        "2": {
+            "name": "Doubler",
+            "type": "image_slide"
+        },
+		"3": {
+			"name": "Gleichung lösen",
+			"type": "image_chain",
+			"config": [
+				{
+					"src": "gleichung/a1.png",
+					"solution": "x=2"
+				},
+				{
+					"src": "gleichung/a2.png",
+					"solution" :"x=5t"
+				}
+			]
+		},
+		"4": {
+			"name": "Kerzenanzünden",
+			"type": "countdown",
+			"config" : 60
+		},
+		"5": {
+			"name": "Bilder verschärfen",
+			"type": "image_chain"
+		},
+		"6": {
+			"name": "Wo ist das?",
+			"type": "map_pick"
+		}
+    }
+}

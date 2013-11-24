@@ -1,0 +1,17 @@
+
+
+.score {
+	margin: 100px auto;
+}
+
+.score-total {
+	font-size: 5em;
+    font-weight: bold;
+	padding: 20px 60px;
+	text-align: center;
+	width: 50%;
+}
+
+.score-name {
+	text-align: center;
+}

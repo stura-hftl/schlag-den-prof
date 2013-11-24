@@ -1,0 +1,11 @@
+
+@import "scores.css";
+@import "gameframe.css";
+
+body {
+	background: black;
+	color: #ccc;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 40px;
+	overflow: hidden;
+}
