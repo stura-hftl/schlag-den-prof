@@ -2,7 +2,7 @@ define(function(require){
 	var DeepDiff = require("diff");
 
 
-	var URI = "ws://localhost:8025/schlagdenprof/databus";
+	var URI = "ws://"+window.location.hostname+":8025/schlagdenprof/databus";
 
 
 	var storedBusData = {};
