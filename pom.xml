@@ -61,6 +61,31 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<!-- download javascript -->
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<configuration>
+							<target name="building">
+								<echo>
+									<!-- NPM INSTALL -->
+								</echo>
+								<exec executable="bower" dir="${project.basedir}/src/main/resources/schlagdenprof" osfamily="unix"
+									failonerror="true">
+									<arg line="install" />
+								</exec>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

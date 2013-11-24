@@ -1,7 +1,7 @@
 {
     "names" : {
         "prof" : "Prof. X",
-        "stud" : "Senior College Student"
+        "stud" : "Klaus"
     },
 	"beamer":{
 		"show" : "logo"
@@ -13,7 +13,21 @@
         },
         "2": {
             "name": "Doubler",
-            "type": "image_slide"
+            "type": "image_slide",
+            "config" : {
+				"images" : {
+	                "1" : "doubler/i1.jpg",
+                	"2" : "doubler/i2.jpg",
+                	"3" : "doubler/i3.jpg",
+                	"4" : "doubler/i4.jpg"
+				},
+				"sequence" : [
+					["1", "2"],
+					["2", "3"],
+					["3", "4"],
+					["4", "1"]
+				]
+			}
         },
 		"3": {
 			"name": "Gleichung lösen",

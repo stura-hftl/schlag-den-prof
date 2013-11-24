@@ -4,7 +4,7 @@ define(function(require){
 
     var Games = {
         simple_count : require("games/simple_count"),
-        image_view : require("games/image_view")
+        image_slide : require("games/image_slide")
     }
 
 
@@ -17,12 +17,27 @@ define(function(require){
 
     self.drawGameFrame = function(data) {
         var game = currentGame(data);
+        var active = data.active;
 
         if(!game)
             return;
 
         var module = Games[game.type];
-        $("#game-content").html(module.drawGameFrame(game));
+        var draw = module.drawGameFrame;
+        var redraw = module.redrawGameFrame;
+
+        var $container = $("#game-content");
+        var $el;
+
+        if($container.data("active-game") == active && redraw) {
+            redraw(game, $container);
+
+        } else {
+            $container.html(draw(game));
+            redraw(game, $container);
+            $container.data("active-game", active);
+
+        }
 
     };
 
