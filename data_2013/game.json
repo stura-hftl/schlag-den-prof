@@ -22,26 +22,35 @@
                 	"4" : "doubler/i4.jpg"
 				},
 				"sequence" : [
+                    "score"
 					["1", "2"],
+                    "score",
 					["2", "3"],
+                    "score",
 					["3", "4"],
-					["4", "1"]
+                    "score",
+					["4", "1"],
+                    "score"
 				]
 			}
         },
 		"3": {
 			"name": "Gleichung lösen",
-			"type": "image_chain",
-			"config": [
-				{
-					"src": "gleichung/a1.png",
-					"solution": "x=2"
-				},
-				{
-					"src": "gleichung/a2.png",
-					"solution" :"x=5t"
-				}
-			]
+			"type": "image_slide",
+			"config": {
+                "images" : {
+                    "1" : "doubler/i1.jpg",
+                    "2" : "doubler/i2.jpg",
+                    "3" : "doubler/i3.jpg",
+                    "4" : "doubler/i4.jpg"
+                },
+                "sequence" : [
+                    ["1"],
+                    ["2"],
+                    ["3"],
+                    ["4"]
+                ]
+            }
 		},
 		"4": {
 			"name": "Kerzenanzünden",
@@ -50,7 +59,21 @@
 		},
 		"5": {
 			"name": "Bilder verschärfen",
-			"type": "image_chain"
+            "type": "sequence",
+            "config": [
+                ["score"],
+                ["image", "doubler/i1.jpg"],
+                ["image", "doubler/i2.jpg"],
+                ["image", "doubler/i1.jpg"],
+                ["image", "doubler/i2.jpg"],
+                ["solution", "Baum"],
+                ["image", "doubler/i3.jpg"],
+                ["image", "doubler/i4.jpg"],
+                ["image", "doubler/i3.jpg"],
+                ["image", "doubler/i4.jpg"],
+                ["solution", "Haus"],
+                ["score"]
+            ]
 		},
 		"6": {
 			"name": "Wo ist das?",

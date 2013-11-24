@@ -4,7 +4,8 @@ define(function(require){
 
     var Games = {
         simple_count : require("games/simple_count"),
-        image_slide : require("games/image_slide")
+        image_slide : require("games/image_slide"),
+        sequence : require("games/sequence")
     }
 
 
@@ -34,10 +35,13 @@ define(function(require){
 
         } else {
             $container.html(draw(game));
-            redraw(game, $container);
-            $container.data("active-game", active);
+
+            if(redraw)
+                redraw(game, $container);
 
         }
+
+        $container.data("active-game", active);
 
     };
 

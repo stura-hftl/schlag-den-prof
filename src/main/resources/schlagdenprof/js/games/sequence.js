@@ -1,7 +1,7 @@
 define(function(require){
 
-    var GameFrameStache = require("stache!html/game.image_slide.frame");
-    var ModControlStache = require("stache!html/game.image_slide.mod");
+    var GameFrameStache = require("stache!html/game.sequence.frame");
+    var ModControlStache = require("stache!html/game.sequence.mod");
 
     var self = {};
 
@@ -24,9 +24,9 @@ define(function(require){
             if(pos < 0)
             {
                 /*$el.filter(":visible").animate({
-                    "width": "5%",
-                    "left": "-5%"
-                });*/
+                 "width": "5%",
+                 "left": "-5%"
+                 });*/
                 $el.filter(":visible").fadeOut();
 
             }
