@@ -9,75 +9,63 @@
     "games": {
         "1": {
             "name": "Kabelschlaufen werfen",
-            "type": "simple_count"
+            "sequence": [
+                ["score"],["score"],
+                ["score"],["score"],
+                ["score"],["score"],
+                ["score"],["score"],
+                ["score"]
+            ]
         },
         "2": {
             "name": "Doubler",
-            "type": "image_slide",
-            "config" : {
-				"images" : {
-	                "1" : "doubler/i1.jpg",
-                	"2" : "doubler/i2.jpg",
-                	"3" : "doubler/i3.jpg",
-                	"4" : "doubler/i4.jpg"
-				},
-				"sequence" : [
-                    "score"
-					["1", "2"],
-                    "score",
-					["2", "3"],
-                    "score",
-					["3", "4"],
-                    "score",
-					["4", "1"],
-                    "score"
-				]
-			}
+            "sequence": [
+                ["image", "doubler/i1.jpg", "doubler/i2.jpg"],
+                ["score"],
+                ["image", "doubler/i2.jpg", "doubler/i3.jpg"],
+                ["score"]
+            ]
         },
 		"3": {
 			"name": "Gleichung lösen",
-			"type": "image_slide",
-			"config": {
-                "images" : {
-                    "1" : "doubler/i1.jpg",
-                    "2" : "doubler/i2.jpg",
-                    "3" : "doubler/i3.jpg",
-                    "4" : "doubler/i4.jpg"
-                },
-                "sequence" : [
-                    ["1"],
-                    ["2"],
-                    ["3"],
-                    ["4"]
-                ]
-            }
+            "sequence": [
+                ["image", "doubler/i1.jpg"],
+                ["score"],
+                ["image", "doubler/i2.jpg"],
+                ["score"]
+            ]
 		},
 		"4": {
 			"name": "Kerzenanzünden",
-			"type": "countdown",
-			"config" : 60
+            "sequence": [
+                ["countdown", 60],
+                ["score"],
+                ["countdown", 60],
+                ["score"]
+            ]
 		},
 		"5": {
 			"name": "Bilder verschärfen",
-            "type": "sequence",
-            "config": [
+            "sequence": [
                 ["score"],
                 ["image", "doubler/i1.jpg"],
                 ["image", "doubler/i2.jpg"],
                 ["image", "doubler/i1.jpg"],
                 ["image", "doubler/i2.jpg"],
-                ["solution", "Baum"],
+                ["text", "Baum"],
                 ["image", "doubler/i3.jpg"],
                 ["image", "doubler/i4.jpg"],
                 ["image", "doubler/i3.jpg"],
                 ["image", "doubler/i4.jpg"],
-                ["solution", "Haus"],
+                ["text", "Haus"],
                 ["score"]
             ]
 		},
 		"6": {
 			"name": "Wo ist das?",
-			"type": "map_pick"
+            "sequence": [
+                ["mappick"]
+            ]
 		}
     }
 }

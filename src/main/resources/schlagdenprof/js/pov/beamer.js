@@ -2,10 +2,10 @@ define(function(require){
 	
 	var Common = require("utils/common");
 	var DataBus = require("utils/databus");
-    var Game = require("utils/game");
+    var Game = require("games/game");
 	
-	var $scores = $(require("stache!html/scores")());
-    var $frame = $(require("stache!html/gameframe")());
+	var $scores = $(require("stache!html/beamer.scores")());
+    var $frame = $(require("stache!html/beamer.frame")());
 
 	return function() {
 

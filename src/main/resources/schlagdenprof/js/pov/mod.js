@@ -4,7 +4,7 @@ define(function(require){
 
 	var modDom = require("stache!html/mod");
 	var GamesTabStache = require("stache!html/mod.games");
-    var Game = require("utils/game");
+    var Game = require("games/game");
 
 	return function() {
 		var $modDom = $(modDom());
@@ -95,11 +95,11 @@ define(function(require){
 				var $grp = $(this).parents("[data-game]");
 				var num = $grp.data("game");
 
-				var party = $(this).attr("name");
+				var winner = $(this).attr("name");
 
 				var data = {};
 				data[num] = {};
-				data[num].winner = party;
+				data[num].winner = winner;
 				
 				DataBus.send("games", data);
 
@@ -109,6 +109,7 @@ define(function(require){
                 var data = {};
 				data.active = $(this).data("activate-game");
                 data.beamer = {"show" : "gameframe"};
+                data.step = null;
 
 
 
@@ -127,9 +128,12 @@ define(function(require){
 		};
 
 		DataBus.register("games", updateGameTab);
-		DataBus.register("active", function(active,data){
-			updateGameTab(data.games, data);
-		});
+        DataBus.register("active", function(active,data){
+            updateGameTab(data.games, data);
+        });
+        DataBus.register("step", function(step,data){
+            updateGameTab(data.games, data);
+        });
 
 		/**
 		 * FINISH

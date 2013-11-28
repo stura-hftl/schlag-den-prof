@@ -1,0 +1,29 @@
+
+
+
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>
+            <button class="btn btn-xs {{#idle}}btn-danger{{/idle}}" data-action="stop">
+                <span class="glyphicon glyphicon-stop"></span>
+            </button>
+        </th>
+        <th>Name</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#items}}
+    <tr>
+        <td>
+            <button class="btn btn-xs {{#active}}btn-success{{/active}}" data-action="jump" data-pos="{{pos}}">
+                <span class="glyphicon glyphicon-play"></span>
+            </button>
+        </td>
+        <td>{{name}}</td>
+        <td>{{state}}</td>
+    </tr>
+    {{/items}}
+    </tbody>
+</table>
