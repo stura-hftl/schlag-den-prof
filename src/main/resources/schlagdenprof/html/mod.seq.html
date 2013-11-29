@@ -22,7 +22,17 @@
             </button>
         </td>
         <td>{{name}}</td>
-        <td>{{state}}</td>
+        <td>
+			{{#hasWinner}}
+				<div class="btn-group">
+					<button class="btn btn-xs btn-danger"
+						name="none"><span class="glyphicon glyphicon-remove"></span>
+					</button>
+					<button class="btn btn-xs" name="prof">Professor</button>
+					<button class="btn btn-xs" name="stud">Student</button>
+				</div>
+			{{/hasWinner}}
+		  </td>
     </tr>
     {{/items}}
     </tbody>

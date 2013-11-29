@@ -45,6 +45,11 @@ define(function(require){
 
         });
 
+        DataBus.register("step", function(active, data){
+            Game.drawGameFrame(data);
+
+        });
+
         DataBus.register("game", function(active, data){
             Game.drawGameFrame(data);
 

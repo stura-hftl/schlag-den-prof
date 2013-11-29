@@ -178,6 +178,11 @@ define(function(require){
 
 	};
 
+	self.getDataByPath = function(path) {
+		return getNode(path, our.data);
+
+	};
+
 
 
 	return self;

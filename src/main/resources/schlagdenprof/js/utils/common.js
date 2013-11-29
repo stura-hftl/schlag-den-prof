@@ -50,6 +50,15 @@ define(function(require){
 		Screen : Screen
 	};
 
+	self.rebind = function($container) {
+		$.each($container.find("[data-bind]"), function(i,el) {
+			var $el = $(el);
+			var value = DataBus.getDataByPath($el.data("bind"));
+			$el.text(value);
+
+		});
+	}
+
     var _updateScore = function(games){
         var totalProf = 0;
         var totalStud = 0;

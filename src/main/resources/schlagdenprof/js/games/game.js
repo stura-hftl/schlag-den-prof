@@ -22,10 +22,11 @@ define(function(require){
 
     self.drawGameFrame = function(data) {
         var active = data.active;
-        var step = data.step;
         var game = data.games[active];
 
         if(!game) return;
+
+        var step = data.step;
 
         if(!step) step = null;
 
@@ -37,11 +38,13 @@ define(function(require){
             var args = config.slice(1);
             var pos = i+1;
 
-            var $el = Moves[type].draw(args);
-            $el.addClass("frame");
-            $el.data("step", pos);
-            if(i!=step) $el.hide();
-            $container.append($el);
+            var $el = Moves[type].draw(args, game.state, data);
+			var $div = $("<div>");
+			$div.html($el);
+            $div.addClass("frame");
+            $div.data("step", pos);
+            if(i!=step) $div.hide();
+            $container.append($div);
 
         });
 
