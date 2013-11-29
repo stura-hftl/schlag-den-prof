@@ -1,63 +1,38 @@
 define(function(require){
+	// --- IMPORTS ---
 	var DeepDiff = require("diff");
+	var jQuery = require("jquery");
 
+	// --- PRIVATE VARS ---
+	var self = {};
+	var our = {};
 
-	var URI = "ws://"+window.location.hostname+":8025/schlagdenprof/databus";
+	our.URI = "ws://"+window.location.hostname+":8025/schlagdenprof/databus";
+	our.data = {};
+	our.registry = {};
+	our.ws = new WebSocket(our.URI, "schlagdenprof");
 
-
-	var storedBusData = {};
-	var registry = {};
-
-	var connection = new WebSocket(URI, "schlagdenprof");
-
-	var activeConditions = {
+	our.startLock = {
 		main : false,
 		open : false
 	};
 
+	// --- PRIVATE FUNCTIONS ---
 	var isActive = function() {
-		return (activeConditions.main == true && activeConditions.open == true);
+		return (our.startLock.main == true && our.startLock.open == true);
 	};
 
 	var activate = function(name){
-		activeConditions[name] = true;
+		our.startLock[name] = true;
 
 		if(isActive())
 		{
-			storedBusData = {};
-			send("", {});
+			our.data = {};
+			self.send("", {});
 		}
 	};
 
-	var send = function(prefix, data){
-		var keys = prefix.split(".");
-
-        if(!keys || !prefix )
-            keys = [];
-
-		while(keys.length > 0)
-		{
-			var key = keys.pop();
-			var tmp = {};
-			tmp[key] = data;
-			data = tmp;
-		}
-
-		var buffer = JSON.stringify(data);
-		console.log("<<<", buffer);
-		connection.send(buffer);
-
-	};
-
-	var register = function(path, fn) {
-		if(!registry[path])
-			registry[path] = [];
-
-		registry[path].push(fn);
-
-	};
-
-	var _getNode = function(path, data) {
+	var getNode = function(path, data) {
 		var keys = path.split(".");
 		while(keys.length > 0)
 		{
@@ -69,13 +44,15 @@ define(function(require){
 
 	};
 
-	connection.onmessage = function(e) {
+
+	// --- WEBSOCKET CONNECTION ---
+	our.ws.onmessage = function(e) {
 		if(!isActive())
 			return;
 
 		var message = JSON.parse(e.data);
-		var diffs = DeepDiff(storedBusData, message);
-		storedBusData = message;
+		var diffs = DeepDiff(our.data, message);
+		our.data = message;
 
 		console.log(">>>", e.data);
 
@@ -104,7 +81,7 @@ define(function(require){
 
 			};
 
-			Object.keys(registry).forEach(__check);
+			Object.keys(our.registry).forEach(__check);
 
 			$("[data-bind]").each(function(i, el){
 				var $el = $(el);
@@ -124,17 +101,17 @@ define(function(require){
 
 			if($el) {
 				console.log("+++", path);
-				var value = _getNode(path, storedBusData);
+				var value = getNode(path, our.data);
 				$el.text(value);
 			}
 
 
 
-			if(registry[path]) {
+			if(our.registry[path]) {
 				console.log("***", path);
-				var node = _getNode(path, storedBusData);
-				for (var i = 0; i < registry[path].length; i++)
-					registry[path][i](node, storedBusData);
+				var node = getNode(path, our.data);
+				for (var i = 0; i < our.registry[path].length; i++)
+					our.registry[path][i](node, our.data);
 			}
 
 		}
@@ -144,33 +121,66 @@ define(function(require){
 
 	};
 		
-	connection.onopen = function () {
+	our.ws.onopen = function () {
 		activate("open");
 	};
 
-	connection.onerror = function() {
+	our.ws.onerror = function() {
 		console.log('WebSocket Error ' + error);
         var Common = require("utils/common");
 		Common.showScreensaver();
 
 	};
 
-	connection.onclose = function() {
+	our.ws.onclose = function() {
 		console.log("WebSocket connection closed.");
         var Common = require("utils/common");
 		Common.showScreensaver();
 
 	};
 
-
-	return {
-		send : send,
-		register : register,
-		start : function(){
-			activate("main");
-		}
+	// --- PUBLIC FUNCTIONS
+	self.start = function() {
+		activate("main");
 
 	};
+
+	self.send = function(prefix, data){
+		var keys = prefix.split(".");
+
+        if(!keys || !prefix )
+            keys = [];
+
+		while(keys.length > 0)
+		{
+			var key = keys.pop();
+			var tmp = {};
+			tmp[key] = data;
+			data = tmp;
+		}
+
+		var buffer = JSON.stringify(data);
+		console.log("<<<", buffer);
+		our.ws.send(buffer);
+
+	};
+
+	self.register = function(path, fn) {
+		if(!our.registry[path])
+			our.registry[path] = [];
+
+		our.registry[path].push(fn);
+
+	};
+
+	self.getData = function() {
+		return jQuery.extend(true, {}, our.data); // deep copy
+
+	};
+
+
+
+	return self;
 
 });
 

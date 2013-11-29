@@ -23,6 +23,9 @@ require.config({
 		},
 		diff : {
 			exports : "DeepDiff"
+		},
+		jquery : {
+			exports : "jQuery"
 		}
 	}
 
