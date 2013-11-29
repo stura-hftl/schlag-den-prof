@@ -54,7 +54,7 @@ define(function(require){
 		var diffs = DeepDiff(our.data, message);
 		our.data = message;
 
-		console.log(">>>", e.data);
+		console.log(">>>", message);
 
 		if(!diffs)
 			return;
@@ -160,7 +160,7 @@ define(function(require){
 		}
 
 		var buffer = JSON.stringify(data);
-		console.log("<<<", buffer);
+		console.log("<<<", data);
 		our.ws.send(buffer);
 
 	};
