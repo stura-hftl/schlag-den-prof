@@ -75,18 +75,17 @@ define(function(require){
             var type = config.slice(0,1);
             var args = config.slice(1);
             var pos = i+1;
-            var m = Moves[type].getModMeta(args);
-            m.pos = pos;
 
+			var meta = {};
+			meta.name = Moves[type].name;
+            meta.pos = pos;
 
             if(step === pos)
-                m.active = true;
+                meta.active = true;
 
-            ctx.items.push(m);
+            ctx.items.push(meta);
 
         });
-
-
 
         var $container = $(ModSeqStache(ctx));
 
@@ -103,11 +102,26 @@ define(function(require){
 
             }
         });
+		
+		$container.find("[data-content]").each(function(i,el){
+			var $el = $(el);
+
+			if($el.data("content") != "control-panel")
+				return;
+
+			var pos = $el.data("pos");
+			var config = game.sequence[pos-1];
+			var type = config.slice(0,1);
+			var args = config.slice(1);
+
+			var $control = Moves[type].drawControl(args, game.state, data);
+			$el.html($control);
+
+		});
+
 
         replace($("#mod-control"), $container);
         $("#mod-control").parents(".panel").show();
-
-        console.log(ctx);
 
     };
 

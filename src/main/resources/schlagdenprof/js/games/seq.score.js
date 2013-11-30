@@ -4,11 +4,20 @@ define(function(require){
 	var our = {};
 
 	var Common = require("utils/common");
+	var StacheControl = require("stache!html/game.score.control");
+
+	// --- PRIVATE VARS ---
 
 	our.defaultState = {
 		score : { prof:0, stud:0 }
 	};
 
+
+	// --- PUBLIC VARS ---
+	self.name = "Score"
+
+
+	// --- PRIVATE FUNCTIONS ---
 
 	var getTemplate = function(){
 		var $tr1 = $("<tr>");
@@ -30,6 +39,8 @@ define(function(require){
 	};
 
 
+	// --- PUBLIC FUNCTIONS ---
+
     self.draw = function(args, state, data){
 		var $el = getTemplate();
 		var $tds = $el.find("td");
@@ -43,22 +54,20 @@ define(function(require){
 
         return $el;
 
-    }
-
-
-    self.getModMeta = function(args){
-		var $state = $("<div>");
-
-		$state.add("<button>");
-		$state.add("<button>");
-
-
-        return {
-            "name": "Score",
-			"hasWinner" : true
-        }
-
     };
+
+	self.drawControl = function(args, state, data) {
+		var $el = $("<div>").html(StacheControl());
+
+		$el.find("[name]").click(function(){
+
+		});
+
+		return $el;
+
+	};
+
+
 
 
     return self;

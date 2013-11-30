@@ -22,16 +22,7 @@
             </button>
         </td>
         <td>{{name}}</td>
-        <td>
-			{{#hasWinner}}
-				<div class="btn-group">
-					<button class="btn btn-xs btn-danger"
-						name="none"><span class="glyphicon glyphicon-remove"></span>
-					</button>
-					<button class="btn btn-xs" name="prof">Professor</button>
-					<button class="btn btn-xs" name="stud">Student</button>
-				</div>
-			{{/hasWinner}}
+		  <td data-pos="{{pos}}" data-content="control-panel">
 		  </td>
     </tr>
     {{/items}}
