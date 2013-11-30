@@ -37,6 +37,8 @@ define(function(require){
 		while(keys.length > 0)
 		{
 			var key = keys.shift();
+			if(!(key in data))
+				return null;
 			data = data[key];
 		}
 

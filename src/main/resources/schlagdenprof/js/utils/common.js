@@ -54,7 +54,8 @@ define(function(require){
 		$.each($container.find("[data-bind]"), function(i,el) {
 			var $el = $(el);
 			var value = DataBus.getDataByPath($el.data("bind"));
-			$el.text(value);
+			if(value)
+				$el.text(value);
 
 		});
 	}
