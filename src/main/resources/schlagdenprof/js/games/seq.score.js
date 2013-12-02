@@ -4,12 +4,13 @@ define(function(require){
 	var our = {};
 
 	var Common = require("utils/common");
+	var DataBus = require("utils/databus");
 	var StacheControl = require("stache!html/game.score.control");
 
 	// --- PRIVATE VARS ---
 
-	our.defaultState = {
-		score : { prof:0, stud:0 }
+	our.score = {
+		prof:0, stud:0
 	};
 
 
@@ -39,6 +40,8 @@ define(function(require){
 	};
 
 
+
+
 	// --- PUBLIC FUNCTIONS ---
 
     self.draw = function(args, state, data){
@@ -47,21 +50,57 @@ define(function(require){
 		
 		$($tds[0]).attr("data-bind", "names.prof");
 		$($tds[1]).attr("data-bind", "names.stud");
-		$($tds[2]).attr("data-bind", "games."+data.active+".state.score.prof");
-		$($tds[3]).attr("data-bind", "games."+data.active+".state.score.stud");
+		$($tds[2]).attr("data-bind", "games."+data.active+".state.score:prof-total");
+		$($tds[3]).attr("data-bind", "games."+data.active+".state.score:stud-total");
 
 		Common.rebind($el);
+
+		var path = "games."+data.active+".state.score";
+		var stud = 0;
+		var prof = 0;
+
+		$.each(DataBus.getDataByPath(path), function(i, v){
+			if(v.winner == "stud")
+				stud++;
+
+			if(v.winner == "prof")
+				prof++;
+
+		});
+
+		$($tds[2]).text(prof);
+		$($tds[3]).text(stud);
 
         return $el;
 
     };
 
-	self.drawControl = function(args, state, data) {
+	self.drawControl = function(data, step) {
 		var $el = $("<div>").html(StacheControl());
+		var winnerPath = "games."+data.active+".state.score."+step+".winner";
 
 		$el.find("[name]").click(function(){
+			var name = $(this).attr("name");
+			if(name == "none") name = null;
+			DataBus.send(winnerPath, name);
 
 		});
+
+		var winner = DataBus.getDataByPath(winnerPath);
+
+		$el.find("[name]").each(function(i, btn){
+			var $btn = $(btn);
+			var name = $btn.attr("name");
+			if(winner == name)
+				$btn.addClass("btn-success");	
+
+			if(name == "none" && !winner)
+				$btn.addClass("btn-danger");
+
+		});
+
+		if(data.step != step)
+			$el.find("button").attr("disabled", "disabled");
 
 		return $el;
 

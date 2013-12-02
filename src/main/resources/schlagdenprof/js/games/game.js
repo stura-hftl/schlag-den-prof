@@ -114,7 +114,7 @@ define(function(require){
 			var type = config.slice(0,1);
 			var args = config.slice(1);
 
-			var $control = Moves[type].drawControl(args, game.state, data);
+			var $control = Moves[type].drawControl(data, pos);
 			$el.html($control);
 
 		});

@@ -58,6 +58,14 @@ define(function(require){
 				$el.text(value);
 
 		});
+	};
+
+	self.bindValue = function(path, value) {
+		$els = $("[data-bind='"+path+"']");
+		console.log("[data-bind='"+path+"']");
+		$els.text(value);
+		console.log($els);
+
 	}
 
     var _updateScore = function(games){
