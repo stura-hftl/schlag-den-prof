@@ -38,7 +38,7 @@ define(function(require){
             var args = config.slice(1);
             var pos = i+1;
 
-            var $el = Moves[type].draw(args, game.state, data);
+            var $el = Moves[type].drawBeamer(args, game.state, data);
 			var $div = $("<div>");
 			$div.html($el);
             $div.addClass("frame");

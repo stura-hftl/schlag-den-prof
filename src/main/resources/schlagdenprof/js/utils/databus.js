@@ -88,10 +88,11 @@ define(function(require){
 				paths = $.grep(paths, function(tuple, i){
 					var pattern = tuple[0];
 					var fn = tuple[1];
+					var match = sub_path.match(pattern);
 
-					if(pattern.test(sub_path)){
-						console.log(":::", pattern, sub_path);
-						fn(our.data, sub_path);
+					if(match){
+						console.log(":::", pattern, match);
+						fn(our.data, match);
 						return false;
 
 					};

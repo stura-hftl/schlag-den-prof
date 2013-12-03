@@ -4,6 +4,7 @@ define(function(require){
 	var our = {};
 
 	var Common = require("utils/common");
+	var Tools = require("utils/tools");
 	var DataBus = require("utils/databus");
 	var StacheControl = require("stache!html/game.score.control");
 
@@ -40,26 +41,16 @@ define(function(require){
 	};
 
 
+	// --- STATIC BLOCK ---
 
+	DataBus.register(/^(games.(.+).state.score)$/, function(data, match){
+		var path = match[1];
+		var score = Tools.Tree.select(data, path);
 
-	// --- PUBLIC FUNCTIONS ---
-
-    self.draw = function(args, state, data){
-		var $el = getTemplate();
-		var $tds = $el.find("td");
-		
-		$($tds[0]).attr("data-bind", "names.prof");
-		$($tds[1]).attr("data-bind", "names.stud");
-		$($tds[2]).attr("data-bind", "games."+data.active+".state.score:prof-total");
-		$($tds[3]).attr("data-bind", "games."+data.active+".state.score:stud-total");
-
-		Common.rebind($el);
-
-		var path = "games."+data.active+".state.score";
 		var stud = 0;
 		var prof = 0;
 
-		$.each(DataBus.getDataByPath(path), function(i, v){
+		if(score) $.each(score, function(i, v){
 			if(v.winner == "stud")
 				stud++;
 
@@ -68,8 +59,24 @@ define(function(require){
 
 		});
 
-		$($tds[2]).text(prof);
-		$($tds[3]).text(stud);
+		Common.Binding.set(path+":total.stud", stud);
+		Common.Binding.set(path+":total.prof", prof);
+
+	});
+
+
+
+	// --- PUBLIC FUNCTIONS ---
+
+    self.drawBeamer = function(args, state, data){
+		var $el = getTemplate();
+		var $tds = $el.find("td");
+		
+		$($tds[0]).attr("data-bind", "names.prof");
+		$($tds[1]).attr("data-bind", "names.stud");
+		$($tds[2]).attr("data-bind", "games."+data.active+".state.score:total.stud");
+		$($tds[3]).attr("data-bind", "games."+data.active+".state.score:total.prof");
+		Common.rebind($el);
 
         return $el;
 

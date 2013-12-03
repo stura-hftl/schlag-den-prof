@@ -40,7 +40,7 @@ define(function(require){
 	self.Tree.deepcopy = function(o) {
 		return jQuery.extend(true, {}, o);
 
-	}
+	};
 
 	return self;
 

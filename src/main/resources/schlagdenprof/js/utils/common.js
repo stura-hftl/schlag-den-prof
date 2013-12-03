@@ -6,6 +6,9 @@ define(function(require){
 	var $loading = $("#loading");
 	var $screensaver = $("#screensaver");
 
+	var our = {};
+	our.bindings = {};
+
 	var Screen = {
 
 		add : function($el) {
@@ -53,20 +56,31 @@ define(function(require){
 	self.rebind = function($container) {
 		$.each($container.find("[data-bind]"), function(i,el) {
 			var $el = $(el);
-			var value = DataBus.getDataByPath($el.data("bind"));
-			if(value)
-				$el.text(value);
+			var key = $el.data("bind");
+			var busValue = DataBus.getDataByPath(key);
+			if(busValue)
+				$el.text(busValue);
+
+			var setValue = our.bindings[key];
+			if(setValue)
+				$el.text(setValue);
 
 		});
 	};
 
 	self.bindValue = function(path, value) {
 		$els = $("[data-bind='"+path+"']");
-		console.log("[data-bind='"+path+"']");
 		$els.text(value);
-		console.log($els);
 
 	}
+
+	self.Binding = {};
+	self.Binding.set = function(key, value) {
+		our.bindings[key] = value;
+		var $el = $("[data-bind='"+key+"']");
+		$el.text(value);
+
+	};
 
     var _updateScore = function(games){
         var totalProf = 0;
