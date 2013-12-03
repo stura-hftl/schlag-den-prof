@@ -43,7 +43,7 @@ define(function(require){
 
 	// --- STATIC BLOCK ---
 
-	DataBus.register(/^(games.(.+).state.score)$/, function(data, match){
+	DataBus.register(/^(games.(.+).state.score)/, function(data, match){
 		var path = match[1];
 		var score = Tools.Tree.select(data, path);
 
@@ -59,8 +59,8 @@ define(function(require){
 
 		});
 
-		Common.Binding.set(path+":total.stud", stud);
-		Common.Binding.set(path+":total.prof", prof);
+		Common.Binding.set(path+":total.stud", stud.toString());
+		Common.Binding.set(path+":total.prof", prof.toString());
 
 	});
 
