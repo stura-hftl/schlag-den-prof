@@ -4,7 +4,7 @@ define(function(require){
 
 	var modDom = require("stache!html/mod");
 	var GamesTabStache = require("stache!html/mod.games");
-    var Game = require("games/game");
+    var GameManager = require("common/gamemanager");
 
 	return function() {
 		var $modDom = $(modDom());
@@ -126,7 +126,7 @@ define(function(require){
 
 			$gameTab.html($html);
 
-            Game.drawModControl(data);
+            GameManager.drawModControl(data);
 		};
 
 		DataBus.register("games", updateGameTab);

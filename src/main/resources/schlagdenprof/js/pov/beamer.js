@@ -2,7 +2,7 @@ define(function(require){
 	
 	var Screen = require("common/screen");
 	var DataBus = require("common/databus");
-    var Game = require("games/game");
+    var GameManager = require("common/gamemanager");
 	
 	var $scores = $(require("stache!html/beamer.scores")());
     var $frame = $(require("stache!html/beamer.frame")());
@@ -41,17 +41,17 @@ define(function(require){
          * GAME FRAME
          */
         DataBus.register("active", function(data){
-            Game.drawGameFrame(data);
+            GameManager.drawGameFrame(data);
 
         });
 
         DataBus.register("step", function(data){
-            Game.drawGameFrame(data);
+            GameManager.drawGameFrame(data);
 
         });
 
         DataBus.register("game", function(data){
-            Game.drawGameFrame(data);
+            GameManager.drawGameFrame(data);
 
         });
 

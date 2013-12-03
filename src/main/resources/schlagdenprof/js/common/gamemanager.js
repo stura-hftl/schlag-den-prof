@@ -4,10 +4,8 @@ define(function(require){
 
     var ModSeqStache = require("stache!html/mod.seq");
 
-    var Moves = {
-        image: require("games/seq.image"),
-        score : require("games/seq.score"),
-        text : require("games/seq.text")
+    var Games = {
+        score : require("games/score"),
     }
 
     var self = {};
@@ -38,7 +36,7 @@ define(function(require){
             var args = config.slice(1);
             var pos = i+1;
 
-            var $el = Moves[type].drawBeamer(args, game.state, data);
+            var $el = Games[type].drawBeamer(args, game.state, data);
 			var $div = $("<div>");
 			$div.html($el);
             $div.addClass("frame");
@@ -77,7 +75,7 @@ define(function(require){
             var pos = i+1;
 
 			var meta = {};
-			meta.name = Moves[type].name;
+			meta.name = Games[type].name;
             meta.pos = pos;
 
             if(step === pos)
@@ -114,7 +112,7 @@ define(function(require){
 			var type = config.slice(0,1);
 			var args = config.slice(1);
 
-			var $control = Moves[type].drawControl(data, pos);
+			var $control = Games[type].drawControl(data, pos);
 			$el.html($control);
 
 		});
