@@ -96,14 +96,14 @@ define(function(require){
 
     };
 
-    DataBus.register("games", function(games, data) {
-        _updateScore(games);
-        _updateCurrentGame(games[data.active]);
+    DataBus.register("games", function(data) {
+        _updateScore(data.games);
+        _updateCurrentGame(data.games[data.active]);
 
     });
 
-    DataBus.register("active", function(active, data) {
-        var game = data.games[active];
+    DataBus.register("active", function(data) {
+        var game = data.games[data.active];
         if(game) {
             _updateCurrentGame(game);
 

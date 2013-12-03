@@ -22,7 +22,7 @@ define(function(require){
 
     self.drawGameFrame = function(data) {
         var active = data.active;
-        var game = data.games[active];
+        var game = data.games[data.active];
 
         if(!game) return;
 

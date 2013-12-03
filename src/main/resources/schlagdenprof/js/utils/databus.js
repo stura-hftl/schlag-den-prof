@@ -2,6 +2,7 @@ define(function(require){
 	// --- IMPORTS ---
 	var DeepDiff = require("diff");
 	var jQuery = require("jquery");
+	var Tools = require("utils/tools");
 
 	// --- PRIVATE VARS ---
 	var self = {};
@@ -33,16 +34,7 @@ define(function(require){
 	};
 
 	var getNode = function(path, data) {
-		var keys = path.split(".");
-		while(keys.length > 0)
-		{
-			var key = keys.shift();
-			if(!(key in data))
-				return null;
-			data = data[key];
-		}
-
-		return data;
+		return Tools.Tree.select(data, path);
 
 	};
 
@@ -61,8 +53,33 @@ define(function(require){
 		if(!diffs)
 			return;
 
-		var matchingPaths = [];
-		
+		var paths = [];
+
+		Object.keys(our.registry).forEach(function(path){
+			var pattern = path;
+			if(!(pattern instanceof RegExp))
+				pattern = new RegExp("^"+pattern);
+			else
+				console.log(pattern);
+
+			$.each(our.registry[path], function(i, fn){
+				paths.push([pattern, fn]);
+			});
+
+		});
+
+		$("[data-bind]").each(function(i, el){
+			var $el = $(el);
+            var path = $el.data("bind");
+			var pattern = new RegExp("^"+path+"$");
+
+			paths.push([pattern, function(data){
+				$el.text(Tools.Tree.select(data, path));
+
+			}]);
+
+		});
+
 		while(diffs.length > 0)
 		{
 			var diff = diffs.shift();
@@ -71,55 +88,29 @@ define(function(require){
 			if(!keys)
 				continue;
 
-			var mpath = keys.join(".");
-			var ml = mpath.length;
+			var diff_path = keys.join(".");
+			var diff_data = Tools.Tree.select(message, diff_path);
 
-			var __check = function(fpath) {
-				var fl = fpath.length;
-				var len = (fl<ml)?fl:ml;
+			Tools.Tree.traverse(diff_data, diff_path, function(sub_data, sub_path){
+				// grep, to remove always called functions
+				paths = $.grep(paths, function(tuple, i){
+					var pattern = tuple[0];
+					var fn = tuple[1];
 
-				if(mpath.slice(0,len) == fpath.slice(0,len))
-					matchingPaths.push(fpath);
+					if(pattern.test(sub_path)){
+						console.log(":::", pattern, sub_path);
+						fn(our.data, sub_path);
+						return false;
 
-			};
+					};
 
-			Object.keys(our.registry).forEach(__check);
+					return true;
 
-			$("[data-bind]").each(function(i, el){
-				var $el = $(el);
-				var fpath = $el.data("bind");
-				__check(fpath);
+				});
 
 			});
 
-			
-		}
-
-		while(matchingPaths.length > 0)
-		{
-			var path = matchingPaths.shift();
-
-			var $el = $("[data-bind='"+path+"']");
-
-			if($el) {
-				console.log("+++", path);
-				var value = getNode(path, our.data);
-				$el.text(value);
-			}
-
-
-
-			if(our.registry[path]) {
-				console.log("***", path);
-				var node = getNode(path, our.data);
-				for (var i = 0; i < our.registry[path].length; i++)
-					our.registry[path][i](node, our.data);
-			}
-
-		}
-
-
-					
+		};
 
 	};
 		
@@ -168,6 +159,7 @@ define(function(require){
 	};
 
 	self.register = function(path, fn) {
+		console.log("+++", path);
 		if(!our.registry[path])
 			our.registry[path] = [];
 

@@ -16,7 +16,7 @@ define(function(require){
          * BEAMER CONTROL
          */
 
-        DataBus.register("beamer.show", function(show, data){
+        DataBus.register("beamer.show", function(data){
             switch(data.beamer.show){
                 default:
                 case "screensaver":
@@ -40,17 +40,17 @@ define(function(require){
         /**
          * GAME FRAME
          */
-        DataBus.register("active", function(active, data){
+        DataBus.register("active", function(data){
             Game.drawGameFrame(data);
 
         });
 
-        DataBus.register("step", function(active, data){
+        DataBus.register("step", function(data){
             Game.drawGameFrame(data);
 
         });
 
-        DataBus.register("game", function(active, data){
+        DataBus.register("game", function(data){
             Game.drawGameFrame(data);
 
         });

@@ -22,7 +22,7 @@ define(function(require){
 			return false;
 		});
 
-		DataBus.register("beamer.show", function(show, data){
+		DataBus.register("beamer.show", function(data){
 				$beamerButtons.attr("disabled", null);
 				$beamerButtons.filter("[name='"+data.beamer.show+"']").attr("disabled", "disabled");
 		});
@@ -43,7 +43,7 @@ define(function(require){
 			});
 		});
 
-		DataBus.register("names", function(names, data) {
+		DataBus.register("names", function(data) {
 			$startNameProf.val(data.names.prof);
 			$startNameStud.val(data.names.stud);
 
@@ -56,8 +56,9 @@ define(function(require){
 		var $gameTab = $modDom.find("#games");
 
 
-		var updateGameTab = function(games, data) {
+		var updateGameTab = function(data) {
 			var context = {};
+			var games = data.games;
 			context.games = [];
 			
 			if(!data.active)
@@ -128,12 +129,8 @@ define(function(require){
 		};
 
 		DataBus.register("games", updateGameTab);
-        DataBus.register("active", function(active,data){
-            updateGameTab(data.games, data);
-        });
-        DataBus.register("step", function(step,data){
-            updateGameTab(data.games, data);
-        });
+		DataBus.register("active", updateGameTab);
+		DataBus.register("step", updateGameTab);
 
 		/**
 		 * FINISH
