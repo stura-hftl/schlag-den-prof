@@ -10,7 +10,7 @@ define(function(require){
 
 	our.URI = "ws://"+window.location.hostname+":8025/schlagdenprof/databus";
 	our.data = {};
-	our.registry = {};
+	our.registry = [];
 	our.ws = new WebSocket(our.URI, "schlagdenprof");
 
 	our.startLock = {
@@ -55,16 +55,8 @@ define(function(require){
 
 		var paths = [];
 
-		Object.keys(our.registry).forEach(function(path){
-			var pattern = path;
-			if(!(pattern instanceof RegExp))
-				pattern = new RegExp("^"+pattern);
-			else
-				console.log(pattern);
-
-			$.each(our.registry[path], function(i, fn){
-				paths.push([pattern, fn]);
-			});
+		$.each(our.registry, function(i, tuple){
+			paths.push(tuple);
 
 		});
 
@@ -158,12 +150,13 @@ define(function(require){
 
 	};
 
-	self.register = function(path, fn) {
-		console.log("+++", path);
-		if(!our.registry[path])
-			our.registry[path] = [];
+	self.register = function(pattern, fn) {
+		console.log("+++", pattern);
 
-		our.registry[path].push(fn);
+		if(!(pattern instanceof RegExp))
+			pattern = new RegExp("^"+pattern);
+
+		our.registry.push([pattern, fn]);
 
 	};
 

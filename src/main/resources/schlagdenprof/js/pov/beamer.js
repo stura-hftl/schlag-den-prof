@@ -16,7 +16,7 @@ define(function(require){
          * BEAMER CONTROL
          */
 
-        DataBus.register("beamer.show", function(data){
+        DataBus.register(/^beamer.show$/, function(data){
             switch(data.beamer.show){
                 default:
                 case "screensaver":

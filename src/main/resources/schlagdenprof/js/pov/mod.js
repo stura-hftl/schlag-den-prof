@@ -41,6 +41,7 @@ define(function(require){
 				"prof": $startNameProf.val(),
 				"stud": $startNameStud.val()
 			});
+			return false;
 		});
 
 		DataBus.register("names", function(data) {
