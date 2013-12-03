@@ -4,7 +4,9 @@ require.config({
 		pov : "../js/pov",
 		html : "../html",
         utils : "../js/utils",
+        common : "../js/common",
         games : "../js/games",
+        boot : "../js/boot",
 
         jquery: 'jquery/jquery.min',
 		bootstrap : "../bootstrap/js/bootstrap",
@@ -31,43 +33,7 @@ require.config({
 
 });
 
-requirejs(['pov/mod', 'pov/player', 'pov/beamer', "utils/databus",
-	"bootstrap"],function(mod, player, beamer, DataBus) {
+requirejs(['boot'], function(boot) {
 	
-	var cssUrl;
-	if(window.location.hash == "#mod")
-		cssUrl = "bootstrap/css/bootstrap.slate.min.css";
-	else
-		cssUrl = "css/game.css";
-
-	var $css = $("<link>");
-	$css.attr("href", cssUrl);
-	$css.attr("rel", "stylesheet");
-	$("head").append($css);
-
-	switch(window.location.hash) {
-		case "#prof":
-			player("prof");
-			break;
-
-		case "#stud":
-			player("stud");
-			break;
-
-		case "#beamer":
-			beamer();
-			break;
-
-		case "#mod":
-			mod();
-			break;
-
-		default:
-			alert("Unbekannter Blickwinkel!");
-			break;
-	}
-
-
-	DataBus.start();
 
 })

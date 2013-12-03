@@ -3,10 +3,8 @@ define(function(require){
 	var self = {};
 	var our = {};
 
-	self.Tree = {};
-
 	// from: http://stackoverflow.com/questions/722668/
-	self.Tree.traverse = function(o, prefix, func) {
+	self.traverse = function(o, prefix, func) {
 		func.apply(this, [o, prefix]);  
 		if (o !== null && typeof(o)=="object") {
 			for (var i in o) {
@@ -15,7 +13,7 @@ define(function(require){
 				else
 					var path = prefix + "." + i;
 
-				self.Tree.traverse(o[i], path, func);
+				self.traverse(o[i], path, func);
 
 			}
 
@@ -23,7 +21,7 @@ define(function(require){
 
 	};
 
-	self.Tree.select = function(o, path){
+	self.select = function(o, path){
         var keys = path.split(".");
         while(keys.length > 0)
         {
@@ -37,7 +35,7 @@ define(function(require){
 
 	};
 
-	self.Tree.deepcopy = function(o) {
+	self.deepcopy = function(o) {
 		return jQuery.extend(true, {}, o);
 
 	};

@@ -1,6 +1,6 @@
 define(function(require){
-	var Common = require("utils/common");
-	var DataBus = require("utils/databus");
+	var DataBus = require("common/databus");
+	var Screen = require("common/screen");
 
 	var modDom = require("stache!html/mod");
 	var GamesTabStache = require("stache!html/mod.games");
@@ -137,8 +137,8 @@ define(function(require){
 		 * FINISH
 		 */
 
-		var $modScreen = Common.Screen.add($modDom);
-		Common.Screen.enable($modScreen);
+		var $modScreen = Screen.add($modDom);
+		Screen.enable($modScreen);
 
 	};
 });

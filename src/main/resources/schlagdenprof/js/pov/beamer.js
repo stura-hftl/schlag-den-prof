@@ -1,7 +1,7 @@
 define(function(require){
 	
-	var Common = require("utils/common");
-	var DataBus = require("utils/databus");
+	var Screen = require("common/screen");
+	var DataBus = require("common/databus");
     var Game = require("games/game");
 	
 	var $scores = $(require("stache!html/beamer.scores")());
@@ -9,8 +9,8 @@ define(function(require){
 
 	return function() {
 
-        Common.Screen.add($scores);
-        Common.Screen.add($frame);
+        Screen.add($scores);
+        Screen.add($frame);
 
         /**
          * BEAMER CONTROL
@@ -20,19 +20,19 @@ define(function(require){
             switch(data.beamer.show){
                 default:
                 case "screensaver":
-                    Common.showScreensaver();
+                    Screen.showScreensaver();
                     break;
 
                 case "logo":
-                    Common.showLoading();
+                    Screen.showLoading();
                     break;
 
                 case "scores":
-                    Common.Screen.enable($scores);
+                    Screen.enable($scores);
                     break;
 
                 case "gameframe":
-                    Common.Screen.enable($frame);
+                    Screen.enable($frame);
                     break;
             }
         });

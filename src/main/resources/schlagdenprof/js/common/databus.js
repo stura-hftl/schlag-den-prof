@@ -2,7 +2,7 @@ define(function(require){
 	// --- IMPORTS ---
 	var DeepDiff = require("diff");
 	var jQuery = require("jquery");
-	var Tools = require("utils/tools");
+	var Tree = require("common/tree");
 
 	// --- PRIVATE VARS ---
 	var self = {};
@@ -34,7 +34,7 @@ define(function(require){
 	};
 
 	var getNode = function(path, data) {
-		return Tools.Tree.select(data, path);
+		return Tree.select(data, path);
 
 	};
 
@@ -66,7 +66,7 @@ define(function(require){
 			var pattern = new RegExp("^"+path+"$");
 
 			paths.push([pattern, function(data){
-				$el.text(Tools.Tree.select(data, path));
+				$el.text(Tree.select(data, path));
 
 			}]);
 
@@ -81,9 +81,9 @@ define(function(require){
 				continue;
 
 			var diff_path = keys.join(".");
-			var diff_data = Tools.Tree.select(message, diff_path);
+			var diff_data = Tree.select(message, diff_path);
 
-			Tools.Tree.traverse(diff_data, diff_path, function(sub_data, sub_path){
+			Tree.traverse(diff_data, diff_path, function(sub_data, sub_path){
 				// grep, to remove always called functions
 				paths = $.grep(paths, function(tuple, i){
 					var pattern = tuple[0];
@@ -113,15 +113,17 @@ define(function(require){
 
 	our.ws.onerror = function() {
 		console.log('WebSocket Error ' + error);
-        var Common = require("utils/common");
-		Common.showScreensaver();
+		require(["common/screen"], function(Screen){
+			Screen.showScreensaver();
+		});
 
 	};
 
 	our.ws.onclose = function() {
 		console.log("WebSocket connection closed.");
-        var Common = require("utils/common");
-		Common.showScreensaver();
+		require(["common/screen"], function(Screen){
+			Screen.showScreensaver();
+		});
 
 	};
 

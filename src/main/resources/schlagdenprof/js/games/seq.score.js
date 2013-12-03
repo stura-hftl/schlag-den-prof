@@ -3,9 +3,9 @@ define(function(require){
     var self = {};
 	var our = {};
 
-	var Common = require("utils/common");
-	var Tools = require("utils/tools");
-	var DataBus = require("utils/databus");
+	var Tree = require("common/tree");
+	var Bindings = require("common/bindings");
+	var DataBus = require("common/databus");
 	var StacheControl = require("stache!html/game.score.control");
 
 	// --- PRIVATE VARS ---
@@ -45,7 +45,7 @@ define(function(require){
 
 	DataBus.register(/^(games.(.+).state.score)/, function(data, match){
 		var path = match[1];
-		var score = Tools.Tree.select(data, path);
+		var score = Tree.select(data, path);
 
 		var stud = 0;
 		var prof = 0;
@@ -59,8 +59,8 @@ define(function(require){
 
 		});
 
-		Common.Binding.set(path+":total.stud", stud.toString());
-		Common.Binding.set(path+":total.prof", prof.toString());
+		Bindings.set(path+":total.stud", stud.toString());
+		Bindings.set(path+":total.prof", prof.toString());
 
 	});
 
@@ -76,7 +76,7 @@ define(function(require){
 		$($tds[1]).attr("data-bind", "names.stud");
 		$($tds[2]).attr("data-bind", "games."+data.active+".state.score:total.stud");
 		$($tds[3]).attr("data-bind", "games."+data.active+".state.score:total.prof");
-		Common.rebind($el);
+		Bindings.rebind($el);
 
         return $el;
 

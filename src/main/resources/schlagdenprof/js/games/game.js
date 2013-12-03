@@ -1,6 +1,6 @@
 define(function(require){
 
-    var DataBus = require("utils/databus");
+    var DataBus = require("common/databus");
 
     var ModSeqStache = require("stache!html/mod.seq");
 
