@@ -8,6 +8,7 @@ define(function(require){
 	var DataBus = require("common/databus");
 	var StacheMod = require("stache!html/game-score-mod");
 	var StacheBeamer = require("stache!html/game-score-beamer");
+	var Audio = require("common/audio");
 
 	// --- PRIVATE VARS ---
 
@@ -40,6 +41,14 @@ define(function(require){
 
 		Bindings.set(path+":total.stud", stud.toString());
 		Bindings.set(path+":total.prof", prof.toString());
+
+		if(our.score.prof < prof || our.score.stud < stud) {
+			Audio.play("score");
+
+		}
+
+		our.score.prof = prof;
+		our.score.stud = stud;
 
 	});
 

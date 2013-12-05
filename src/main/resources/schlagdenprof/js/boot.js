@@ -11,6 +11,12 @@ define(function(require){
 	var PovPlayer = require("pov/player");
 
 
+	var getURLParameter = function (name) {
+		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + 
+			'([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].
+			replace(/\+/g, '%20'))||null
+	}
+
 	// --- STATIC BLOCK ---
 	switch(window.location.hash) {
 		case "#prof":
@@ -76,16 +82,21 @@ define(function(require){
 	});
 
 	(function setZoom(){
-		var getURLParameter = function (name) {
-			return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
-		}
-
 		var zoom = getURLParameter("zoom");
 		if(zoom)
 			$("body").css("zoom", zoom);
 
 	})();
 
+	(function setAudio(){
+		var audio = getURLParameter("audio");
+		if(audio == 'on'){
+			require(["common/audio"], function(Audio){
+				Audio.enable();
+			});
+		}
+
+	})();
 
 	DataBus.start();
 });
