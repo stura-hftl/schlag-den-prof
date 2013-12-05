@@ -6,6 +6,7 @@ define(function(require){
 
     var Games = {
         score : require("games/score"),
+		image : require("games/image"),
     }
 
     var self = {};
@@ -41,7 +42,7 @@ define(function(require){
 			$div.html($el);
             $div.addClass("frame");
             $div.data("step", pos);
-            if(i!=step) $div.hide();
+            if(pos!=step) $div.hide();
             $container.append($div);
 
         });

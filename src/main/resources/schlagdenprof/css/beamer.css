@@ -1,7 +1,7 @@
 
 
 .frame .bigscore {
-	margin: 15% auto;
+	margin: 0 auto;
 }
 
 .frame .bigscore-total {
@@ -14,4 +14,12 @@
 
 .frame .bigscore-name {
 	text-align: center;
+}
+
+.frame .big_image {
+	text-align: center;
+}
+.frame .big_image img {
+	max-width: 100%;
+	max-height: 100%;
 }

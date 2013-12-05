@@ -29,9 +29,9 @@
 		"3": {
 			"name": "Gleichung lösen",
             "sequence": [
-                ["image", "doubler/i1.jpg"],
+                ["image", "example-math.png"],
                 ["score"],
-                ["image", "doubler/i2.jpg"],
+                ["image", "example-math.png"],
                 ["score"]
             ]
 		},

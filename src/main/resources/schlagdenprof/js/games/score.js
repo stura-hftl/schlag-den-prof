@@ -6,7 +6,8 @@ define(function(require){
 	var Tree = require("common/tree");
 	var Bindings = require("common/bindings");
 	var DataBus = require("common/databus");
-	var StacheControl = require("stache!html/game.score.control");
+	var StacheMod = require("stache!html/game-score-mod");
+	var StacheBeamer = require("stache!html/game-score-beamer");
 
 	// --- PRIVATE VARS ---
 
@@ -17,28 +18,6 @@ define(function(require){
 
 	// --- PUBLIC VARS ---
 	self.name = "Score"
-
-
-	// --- PRIVATE FUNCTIONS ---
-
-	var getTemplate = function(){
-		var $tr1 = $("<tr>");
-		$tr1.append("<td>");
-		$tr1.append("<td>");
-
-		var $tr2 = $tr1.clone();
-
-		$tr1.find("td").addClass("bigscore-name");
-		$tr2.find("td").addClass("bigscore-total");
-
-        var $table = $("<table>");
-		$table.addClass("bigscore");
-		$table.append($tr1);
-		$table.append($tr2);
-
-		return $table;
-
-	};
 
 
 	// --- STATIC BLOCK ---
@@ -65,17 +44,10 @@ define(function(require){
 	});
 
 
-
 	// --- PUBLIC FUNCTIONS ---
 
     self.drawBeamer = function(args, state, data){
-		var $el = getTemplate();
-		var $tds = $el.find("td");
-		
-		$($tds[0]).attr("data-bind", "names.prof");
-		$($tds[1]).attr("data-bind", "names.stud");
-		$($tds[2]).attr("data-bind", "games."+data.active+".state.score:total.stud");
-		$($tds[3]).attr("data-bind", "games."+data.active+".state.score:total.prof");
+		$el = $(StacheBeamer({number:data.active}));
 		Bindings.rebind($el);
 
         return $el;
@@ -83,7 +55,7 @@ define(function(require){
     };
 
 	self.drawControl = function(data, step) {
-		var $el = $("<div>").html(StacheControl());
+		var $el = $("<div>").html(StacheMod());
 		var winnerPath = "games."+data.active+".state.score."+step+".winner";
 
 		$el.find("[name]").click(function(){

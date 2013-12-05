@@ -27,10 +27,10 @@
 
 #gameframe .frame {
     position: absolute;
-    top: 0;
+    top: 96px;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 116px;
 }
 
 #gameframe .content .middle {
