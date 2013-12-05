@@ -13,7 +13,6 @@ define(function(require){
 	// --- PRIVATE VARS ---
 
 	our.score = {
-		prof:0, stud:0
 	};
 
 
@@ -42,10 +41,11 @@ define(function(require){
 		Bindings.set(path+":total.stud", stud.toString());
 		Bindings.set(path+":total.prof", prof.toString());
 
-		if(our.score.prof < prof || our.score.stud < stud) {
+		if(	(typeof our.score.prof !== 'undefined') &&
+			(typeof our.score.stud !== 'undefined') &&
+			((our.score.prof < prof) || (our.score.stud < stud))
+		)
 			Audio.play("score");
-
-		}
 
 		our.score.prof = prof;
 		our.score.stud = stud;

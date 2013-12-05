@@ -77,10 +77,10 @@ define(function(require){
 		if(!our.totalScore)
 			our.totalScore = {};
 
-		if(our.totalScore.prof && our.totalScore.stud && 
-				(our.totalScore.prof < totalProf ||
-			 	 our.totalScore.stud < totalStud))
-			Audio.play("won-round");
+		if( (typeof our.totalScore.prof !== 'undefined') &&
+			(typeof our.totalScore.stud !== 'undefined') &&
+			(our.totalScore.prof < totalProf || our.totalScore.stud < totalStud))
+				Audio.play("won-round");
 
 		our.totalScore.prof = totalProf;
 		our.totalScore.stud = totalStud;
