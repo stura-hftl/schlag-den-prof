@@ -5,6 +5,7 @@ define(function(require){
 	var Bootstrap = require("bootstrap"); // included for event hooking
 	var DataBus = require("common/databus");
 	var Bindings = require("common/bindings");
+	var Audio = require("common/audio");
 	
 	var PovMod = require("pov/mod");
 	var PovBeamer = require("pov/beamer");
@@ -72,6 +73,17 @@ define(function(require){
 
 		Bindings.set(":score.total.prof", totalProf.toString());
 		Bindings.set(":score.total.stud", totalStud.toString());
+
+		if(!our.totalScore)
+			our.totalScore = {};
+
+		if(our.totalScore.prof && our.totalScore.stud && 
+				(our.totalScore.prof < totalProf ||
+			 	 our.totalScore.stud < totalStud))
+			Audio.play("won-round");
+
+		our.totalScore.prof = totalProf;
+		our.totalScore.stud = totalStud;
 
     });
 
