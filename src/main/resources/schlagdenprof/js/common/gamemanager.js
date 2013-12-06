@@ -7,6 +7,7 @@ define(function(require){
     var Games = {
         score : require("games/score"),
 		image : require("games/image"),
+		mappick : require("games/mappick"),
     }
 
     var self = {};
