@@ -28,6 +28,22 @@ define(function(require){
 	// --- PUBLIC FUNCTIONS ---
 	self.drawBeamer = function(args, state, data){
 		if(!our.$beamer) {
+			var styleArray = [
+				{
+					featureType: "poi",
+					stylers: [
+						{ visibility: "off" }
+					]
+				},
+				{
+					elementType: "labels",
+					stylers: [
+						{ visibility: "off" }
+					]
+				}
+			];
+
+
 			our.$beamer = $(StacheBeamer());
 			our.$canvas = our.$beamer.filter("#mappick_canvas");
 			our.map = new google.maps.Map(our.$canvas[0], {
@@ -35,8 +51,17 @@ define(function(require){
 					center: our.center.latlng,
 					mapTypeId: google.maps.MapTypeId.ROADMAP,
 					disableDefaultUI: true,
-					draggable: false
+					draggable: false,
+					styles: styleArray
 			});
+
+			var myMarker = new google.maps.Marker({
+					position: our.center.latlng,
+					draggable: true
+			});
+
+			myMarker.setMap(our.map);
+
 		}
 		window.setTimeout(fixMapSize, 100);
 		window.setTimeout(fixMapSize, 200);
