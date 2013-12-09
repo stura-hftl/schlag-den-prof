@@ -25,7 +25,7 @@ define(function(require){
 
     };
 
-	self.drawControl = function(data, step) {
+	self.drawControl = function(gc) {
 
 	};
 

@@ -63,9 +63,9 @@ define(function(require){
 
     };
 
-	self.drawControl = function(data, step) {
+	self.drawControl = function(gc) {
 		var $el = $("<div>").html(StacheMod());
-		var winnerPath = "games."+data.active+".state.score."+step+".winner";
+		var winnerPath = "games."+gc.getData().active+".state.score."+gc.getStroke()+".winner";
 
 		$el.find("[name]").click(function(){
 			var name = $(this).attr("name");
@@ -87,7 +87,7 @@ define(function(require){
 
 		});
 
-		if(data.step != step)
+		if(gc.getData().step != gc.getStroke())
 			$el.find("button").attr("disabled", "disabled");
 
 		return $el;

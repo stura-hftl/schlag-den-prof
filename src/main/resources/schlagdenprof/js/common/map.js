@@ -28,6 +28,7 @@ define(function(require){
 				disableDefaultUI: true,
 				draggable: false,
 				styles: our.styles.running,
+				scrollwheel: false,
 
 			});
 
@@ -52,7 +53,8 @@ define(function(require){
 			var latlng = new google.maps.LatLng(lat, lng);
 			var marker = new google.maps.Marker({
 				position: latlng,
-				draggable: true
+				draggable: true,
+				icon: "img/mapmarkers/marker_solution.png"
 			});
 			marker.setMap(our.map);
 

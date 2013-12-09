@@ -1,6 +1,7 @@
 define(function(require){
 
     var DataBus = require("common/databus");
+	var GameContext = require("common/gamecontext");
 
     var ModSeqStache = require("stache!html/mod.seq");
 
@@ -110,11 +111,9 @@ define(function(require){
 				return;
 
 			var pos = $el.data("pos");
-			var config = game.sequence[pos-1];
-			var type = config.slice(0,1);
-			var args = config.slice(1);
+			var gc = GameContext(data, null, pos);
 
-			var $control = Games[type].drawControl(data, pos);
+			var $control = Games[gc.getType()].drawControl(gc);
 			$el.html($control);
 
 		});
