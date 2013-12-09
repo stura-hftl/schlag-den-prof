@@ -1,0 +1,81 @@
+{
+    "names" : {
+        "prof" : "Prof. X",
+        "stud" : "Klaus"
+    },
+	"beamer":{
+		"show" : "logo"
+	},
+    "games": {
+        "1": {
+            "name": "Kabelschlaufen werfen",
+			"sequence" : [
+				["score", "bestof", 5]
+			]
+        },
+        "2": {
+            "name": "Doubler",
+			"overlay" : [
+				["score"]
+			],
+            "sequence": [
+                ["image", "doubler/dummy-1.png", "doubler/dummy-2.png"],
+                ["image", "doubler/dummy-2.png", "doubler/dummy-3.png"],
+                ["image", "doubler/dummy-3.png", "doubler/dummy-1.png"],
+				["score"]
+            ]
+        },
+		"3": {
+			"name": "Gleichung lösen",
+			"overlay" : [
+				["score"]
+			],
+            "sequence": [
+				["text", "Gleichung 1"],
+                ["image", "equation/dummy-1.png"],
+                ["image", "solution/dummy-2.png"],
+				["text", "Gleichung 2"],
+                ["image", "equation/dummy-1.png"],
+                ["image", "solution/dummy-2.png"],
+                ["score"]
+            ]
+		},
+		"4": {
+			"name": "Kerzenanzünden",
+            "sequence": [
+                ["countdown", 60],
+                ["score"]
+            ]
+		},
+		"5": {
+			"name": "Bilder verschärfen",
+            "sequence": [
+                ["score"],
+                ["image", "focus/dummy-1.png"],
+                ["image", "focus/dummy-2.png"],
+                ["image", "focus/dummy-3.png"],
+                ["image", "focus/dummy-4.png"],
+                ["text", "Dummy 1"],
+                ["image", "focus/dummy-1.png"],
+                ["image", "focus/dummy-2.png"],
+                ["image", "focus/dummy-3.png"],
+                ["image", "focus/dummy-4.png"],
+                ["text", "Dummy 2"],
+                ["score"]
+            ]
+		},
+		"6": {
+			"name": "Wo ist das?",
+            "sequence": [
+                ["mappick", {
+					"label": "HfTL",
+					"target" : [51.312767, 12.376017],
+					"bounds" : [
+						[51.322432, 12.392400],
+						[51.305909, 12.367251]
+					]
+				}]
+            ]
+		}
+    }
+}
