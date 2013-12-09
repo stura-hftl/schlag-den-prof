@@ -28,6 +28,29 @@ define(function(require){
 		});
 
 
+		(function keyboardShortcuts(){
+			$("body").keyup(function(e) {
+				switch(e.which){
+					case 37:
+						var step = DataBus.get("step");
+						DataBus.send("step", step-1);
+						break;
+
+					case 39:
+						var step = DataBus.get("step");
+						DataBus.send("step", step+1);
+						break;
+				
+					default:
+						console.log(e.which);
+						break;
+				};
+
+
+			});
+		})();
+
+
 		/**
 		 * START
 		 */

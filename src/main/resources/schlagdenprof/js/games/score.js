@@ -87,9 +87,6 @@ define(function(require){
 
 		});
 
-		if(gc.getData().step != gc.getStroke())
-			$el.find("button").attr("disabled", "disabled");
-
 		return $el;
 
 	};

@@ -173,6 +173,10 @@ define(function(require){
 
 	};
 
+	self.get = function(path) {
+		return self.getDataByPath(path);
+	};
+
 
 
 	return self;

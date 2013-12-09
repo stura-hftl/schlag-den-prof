@@ -33,10 +33,10 @@
             "sequence": [
 				["text", "Gleichung 1"],
                 ["image", "equation/dummy-1.png"],
-                ["image", "solution/dummy-2.png"],
+                ["image", "equation/dummy-2.png"],
 				["text", "Gleichung 2"],
                 ["image", "equation/dummy-1.png"],
-                ["image", "solution/dummy-2.png"],
+                ["image", "equation/dummy-2.png"],
                 ["score"]
             ]
 		},
