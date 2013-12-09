@@ -9,6 +9,8 @@ define(function(require){
         score : require("games/score"),
 		image : require("games/image"),
 		mappick : require("games/mappick"),
+		text : require("games/text"),
+		countdown : require("games/countdown"),
     }
 
     var self = {};
@@ -38,8 +40,9 @@ define(function(require){
             var type = config.slice(0,1);
             var args = config.slice(1);
             var pos = i+1;
+			var gc = GameContext(data, null, pos);
 
-            var $el = Games[type].drawBeamer(args, game.state, data);
+            var $el = Games[type].drawBeamer(gc);
 			var $div = $("<div>");
 			$div.html($el);
             $div.addClass("frame");

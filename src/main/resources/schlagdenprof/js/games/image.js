@@ -20,8 +20,11 @@ define(function(require){
 
 	// --- PUBLIC FUNCTIONS ---
 
-    self.drawBeamer = function(args, state, data){
-		return $(StacheBeamer());
+    self.drawBeamer = function(gc){
+		var ctx = {
+			src : gc.getArg(0)
+		};
+		return $(StacheBeamer(ctx));
 
     };
 

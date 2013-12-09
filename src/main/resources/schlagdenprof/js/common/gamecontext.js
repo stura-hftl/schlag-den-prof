@@ -46,6 +46,10 @@ define(function(require){
 			return self.getConfig().slice(0,1);
 		};
 
+		self.getArg = function(i) {
+			return self.getArgs()[i];
+		};
+
 		self.getArgs = function() {
 			return self.getConfig().slice(1);
 		};

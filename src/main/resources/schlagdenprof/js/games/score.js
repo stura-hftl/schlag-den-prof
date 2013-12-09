@@ -55,8 +55,8 @@ define(function(require){
 
 	// --- PUBLIC FUNCTIONS ---
 
-    self.drawBeamer = function(args, state, data){
-		$el = $(StacheBeamer({number:data.active}));
+    self.drawBeamer = function(gc){
+		$el = $(StacheBeamer({ number : gc.getRound() }));
 		Bindings.rebind($el);
 
         return $el;
