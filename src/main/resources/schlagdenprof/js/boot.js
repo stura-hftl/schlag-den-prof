@@ -87,7 +87,8 @@ define(function(require){
 
 	DataBus.register(/^active/, function(data, match) {
 		var game = data.games[data.active];
-		Bindings.set(":activegame.name", game.name);
+		var name = (game)?game.name:"";
+		Bindings.set(":activegame.name", name);
 
 	});
 
