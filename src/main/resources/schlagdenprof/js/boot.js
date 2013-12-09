@@ -75,12 +75,10 @@ define(function(require){
 		Bindings.set(":score.total.stud", totalStud.toString());
 
 		if(!our.totalScore)
-			our.totalScore = {};
+			our.totalScore = {prof: 0, stud: 0};
 
-		if( (typeof our.totalScore.prof !== 'undefined') &&
-			(typeof our.totalScore.stud !== 'undefined') &&
-			(our.totalScore.prof < totalProf || our.totalScore.stud < totalStud))
-				Audio.play("won-round");
+		if(our.totalScore.prof < totalProf || our.totalScore.stud < totalStud)
+			Audio.play("won-round");
 
 		our.totalScore.prof = totalProf;
 		our.totalScore.stud = totalStud;
