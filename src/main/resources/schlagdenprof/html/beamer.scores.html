@@ -1,13 +1,14 @@
-<div class="fullscreen">
-
-	<table class="score">
-		<tr>
-			<td data-bind="names.prof" class="score-name"></td>
-			<td data-bind="names.stud" class="score-name"></td>
-		</tr>
-		<tr>
-			<td data-bind=":score.total.prof" class="score-total"></td>
-			<td data-bind=":score.total.stud" class="score-total"></td>
-		</tr>
-    </table>
+<div class="layer">
+	<div class="layer layer-c" style="height: 50%;">
+		<table class="bigscore">
+			<tr>
+				<td data-bind="names.prof" class="bigscore-name"></td>
+				<td data-bind="names.stud" class="bigscore-name"></td>
+			</tr>
+			<tr>
+				<td data-bind=":score.total.prof" class="bigscore-total">0</td>
+				<td data-bind=":score.total.stud" class="bigscore-total">0</td>
+			</tr>
+		 </table>
+	</div>
 </div>

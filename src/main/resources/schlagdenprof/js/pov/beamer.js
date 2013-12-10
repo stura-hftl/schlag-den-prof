@@ -8,9 +8,8 @@ define(function(require){
     var $frame = $(require("stache!html/beamer.frame")());
 
 	return function() {
-
-        Screen.add($scores);
-        Screen.add($frame);
+		Screen.add($scores);
+		Screen.add($frame);
 
         /**
          * BEAMER CONTROL

@@ -6,41 +6,33 @@ define(function(require){
 	var our = {};
 	our.$loading = $("#loading");
 	our.$screensaver = $("#screensaver");
+	our.$all = $().
+		add(our.$loading).
+		add(our.$screensaver);
 
 
 	self.add = function($el) {
-		var $fs = $el;
-		if(!$fs.is(".fullscreen")) {
-			var $fs = $("<div>");
-			$fs.addClass("fullscreen");
-			$fs.html($el);
+		$el.hide();
+		our.$all = our.$all.add($el);
+		$("body").append($el);
 
-		}
-
-		$fs.hide();
-		$("body").append($fs);
-
-		return $fs;
+		return $el;
 
 	};
 
 	self.enable = function($el) {
-		var $one = $el.filter(".fullscreen");
-		var $all = $("body > .fullscreen");
-		$all.not($one).filter(":visible").fadeOut();
-		$one.fadeIn();
+		our.$all.not($el).filter(":visible").fadeOut();
+		$el.fadeIn();
 
 	};
 
 
 	self.showLoading = function(){
 		self.enable(our.$loading);
-
 	};
 
 	self.showScreensaver = function() {
 		self.enable(our.$screensaver);
-
 	};
 
 	return self;

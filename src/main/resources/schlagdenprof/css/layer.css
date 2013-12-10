@@ -1,0 +1,37 @@
+.layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto; 
+	text-align: center;
+	vertical-align: middle;
+	display: block;
+
+}
+
+.layer-s { top: auto; }
+.layer-e { left: auto; }
+.layer-w { right: auto; }
+.layer-n { bottom: auto; }
+
+.layer-c { margin: auto; }
+
+.layer-se { top: auto; left: auto; }
+.layer-sw { top: auto; right: auto; }
+.layer-ne { bottom: auto; left: auto; }
+.layer-nw { bottom: auto; right: auto; }
+
+.layer-crophud { top: 96px; bottom: 110px; }
+
+
+.layer-bigtext {
+	line-height: 100px; height: 200px; font-size: 100px;
+	font-weight: bold;
+}
+
+.layer-bigimage img {
+	max-height: 100%;
+	max-width: 100%;
+}

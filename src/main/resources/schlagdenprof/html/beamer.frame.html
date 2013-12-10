@@ -1,22 +1,24 @@
-<div class="fullscreen" id="gameframe">
-    <div id="game-content"></div>
+<div class="layer" id="gameframe">
+    <div id="game-content" style="z-index: -100;"></div>
 
-    <div class="header">
-        <h1 data-bind=":activegame.name"></h1>
-    </div>
+	 <div id="game-hud" class="layer">
+		 <div class="layer layer-n">
+			  <h1 data-bind=":activegame.name"></h1>
+		 </div>
 
+		 <div class="layer layer-s">
+			<img src="img/schlagdenprof_logo_small.png">
+		 </div>
 
-    <div class="footer">
-        <table>
-            <tr>
-                <td class="side" data-bind=":score.total.prof">0</td>
-                <td class="center" rowspan="2"><img src="img/schlagdenprof_logo_small.png"></td>
-                <td class="side" data-bind=":score.total.stud">0</td>
-            </tr>
-            <tr>
-                <td class="side" data-bind="names.prof"></td>
-                <td class="side" data-bind="names.stud"></td>
-            </tr>
-        </table>
-    </div>
+		 <div class="layer layer-sw" style="width: 20%; height: 110px;">
+			 <span data-bind="names.prof"></span><br>
+			 <span data-bind=":score.total.prof">0</span>
+		 </div>
+
+		 <div class="layer layer-se" style="width: 20%; height: 110px;">
+			 <span data-bind="names.stud"></span><br>
+			 <span data-bind=":score.total.stud">0</span>
+		 </div>
+	 </div>
+
 </div>

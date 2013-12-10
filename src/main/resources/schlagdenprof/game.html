@@ -8,37 +8,25 @@
 
 		html,body { height: 100%; margin: 0px; padding: 0px; }
 
-		.fullscreen {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background: inherit;
-			height: 100%;
-			display: none;
-		}
-
-		#loading, #screensaver {
-			text-align: center;
-			padding-top: 100px;
-		}
-
-		#loading {
-			display: none;
-		}
-
 	</style>
 
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> <!-- HACK: Because of some reason I am unable to load this dynamicly. -->
 
 </head>
-<body>
-	<div id="loading" class="fullscreen" style="background: black">
-		<img src="img/schlagdenprof_logo_ohnetransp.png">
+<body style="background: #000">
+	<div class="layer" id="loading" style="display: none; background: #000;">
+		<div class="layer layer-c" style="height: 397px;">
+			<img src="img/schlagdenprof_logo_ohnetransp.png">
+		</div>
 	</div>
-	<div id="screensaver" class="fullscreen" style="background: black; display: block;">
-		<img src="img/fatal.gif">
+	<div class="layer" id="screensaver" style="display: none; background: #000;">
+		<div class="layer layer-c" style="height: 400px;">
+			<img src="img/fatal.gif">
+		</div>
+	</div>
+	<div class="layer" id="totalscore">
+	</div>
+	<div class="layer" id="gamelayer">
 	</div>
 	<script data-main="js/main" src="bower_components/requirejs/require.js"></script>
 </body>
