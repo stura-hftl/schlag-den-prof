@@ -60,7 +60,9 @@ define(function(require){
 
 		});
 
-		$toHide.fadeOut();
+		$toHide.fadeOut(function(){
+			$(this).remove();
+		});
 
 		our.pred = curr;
 
