@@ -26,34 +26,17 @@ define(function(require){
     self.drawGameFrame = function(data) {
         var active = data.active;
         var game = data.games[data.active];
+		var step = data.step;
 
-        if(!game) return;
+        if(!game || !step) {
+			$("#game-content").html("");
 
-        var step = data.step;
+		} else {
+			var gc = GameContext(data, data.active, step);
+			var $el = Games[gc.getType()].drawBeamer(gc);
+			$("#game-content").html($el);
 
-        if(!step) step = null;
-
-        var $container = $("<div>");
-        $container.data("active", active);
-
-        $.each(game.sequence, function(i, config){
-            var type = config.slice(0,1);
-            var args = config.slice(1);
-            var pos = i+1;
-			var gc = GameContext(data, null, pos);
-
-            var $el = Games[type].drawBeamer(gc);
-			var $div = $("<div>");
-			$div.html($el);
-            $div.addClass("frame");
-            $div.data("step", pos);
-            if(pos!=step) $div.hide();
-            $container.append($div);
-
-        });
-
-        replace($("#game-content"), $container);
-
+		}
 
     };
 
