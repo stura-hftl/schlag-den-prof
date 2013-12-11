@@ -22,8 +22,19 @@ define(function(require){
 
     self.drawBeamer = function(gc){
 		var ctx = {
-			src : gc.getArg(0)
+			images : []
 		};
+
+		var width = (100 / gc.getArgs().length)-3;
+
+		$.each(gc.getArgs(), function(i, src){
+			ctx.images[i] = {
+				src : src,
+				width : width
+			};
+		});
+
+
 		return $(StacheBeamer(ctx));
 
     };

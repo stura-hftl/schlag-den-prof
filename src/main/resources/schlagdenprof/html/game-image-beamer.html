@@ -1,6 +1,8 @@
 
 <div class="layer layer-crophud">
 	<div class="layer layer-c layer-bigimage">
-		<img src="/data/{{src}}">
+		{{#images}}
+			<img src="/data/{{src}}" style="max-width: {{width}}%;">
+		{{/images}}
 	</div>
 </div>

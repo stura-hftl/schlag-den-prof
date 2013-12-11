@@ -12,17 +12,19 @@ define(function(require){
 	// --- PUBLIC FUNCTIONS ---
 	self.name = "Map-Pick";
 
-	self.drawBeamer = function(args, state, data){
+	self.drawBeamer = function(gc){
 
-		var args = args[0];
+		var kwargs = gc.getArg(0);
 		var $beamer = $(StacheBeamer());
-		var $canvas = $beamer.filter("#mappick_canvas");
+		var $canvas = $beamer.find("#mappick_canvas");
 
-		var map = Map($canvas, args.bounds);
-		map.setMarker("center", args.target[0], args.target[1]);
+		var map = Map($canvas, kwargs.bounds);
+		map.setMarker("center", kwargs.target[0], kwargs.target[1]);
 
 		window.setTimeout(map.resize, 200);
-		window.setTimeout(map.resize, 1000);
+		window.setTimeout(map.resize, 400);
+		window.setTimeout(map.resize, 800);
+		window.setTimeout(map.resize, 1600);
 
 		return $beamer;
 
