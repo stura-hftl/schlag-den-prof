@@ -36,6 +36,7 @@ define(function(require){
 						DataBus.send("step", step-1);
 						break;
 
+					case 32:
 					case 39:
 						var step = DataBus.get("step");
 						DataBus.send("step", step+1);
@@ -46,6 +47,7 @@ define(function(require){
 						break;
 				};
 
+				return false;
 
 			});
 		})();
@@ -149,7 +151,9 @@ define(function(require){
 
 			$gameTab.html($html);
 
-            GameManager.drawModControl(data);
+            GameManager.drawStrokeControl(data);
+			GameManager.drawOverlayControl(data);
+
 		};
 
 		DataBus.register("games", updateGameTab);

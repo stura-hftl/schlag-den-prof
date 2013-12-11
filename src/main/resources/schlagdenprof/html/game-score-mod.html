@@ -1,7 +1,8 @@
-Gewinner:
-<span class="btn-group">
-	<button class="btn btn-xs"
-		name="none"><span class="glyphicon glyphicon-remove"></span></button>
-	<button class="btn btn-xs" name="prof">Professor</button>
-	<button class="btn btn-xs" name="stud">Student</button>
-</span>
+<span data-bind="names.prof"></span>
+(
+<span data-bind="games.{{number}}.state.score.total.prof">0</span>
+:
+<span data-bind="games.{{number}}.state.score.total.stud">0</span>
+)
+<span data-bind="names.stud"></span>
+

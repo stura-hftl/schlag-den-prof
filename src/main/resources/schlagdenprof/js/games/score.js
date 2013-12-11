@@ -7,12 +7,33 @@ define(function(require){
 	var Bindings = require("common/bindings");
 	var DataBus = require("common/databus");
 	var StacheMod = require("stache!html/game-score-mod");
+	var StacheControl = require("stache!html/game-score-control");
 	var StacheBeamer = require("stache!html/game-score-beamer");
+	var StacheOverlay = require("stache!html/game-score-overlay");
 	var Audio = require("common/audio");
 
 	// --- PRIVATE VARS ---
 
 	our.score = {
+	};
+
+	var updateScore = function(action) {
+		var path = "games."+DataBus.get("active")+".state.score.total";
+
+		var scores = DataBus.get(path);
+
+		if(!scores) scores = {};
+		if(!scores.prof) scores.prof = 0;
+		if(!scores.stud) scores.stud = 0;
+
+		switch(action) {
+			case "p+": scores.prof++; break;
+			case "p-": scores.prof--; break;
+			case "s+": scores.stud++; break;
+			case "s-": scores.stud--; break;
+		}
+
+		DataBus.send(path, scores);
 	};
 
 
@@ -21,39 +42,26 @@ define(function(require){
 
 
 	// --- STATIC BLOCK ---
+	$(function(){
+		$("body").keyup(function(e){
+			switch(e.which){
+				case 219: updateScore("p+"); break;
+				case 79:  updateScore("p-"); break;
+				case 68:  updateScore("s+"); break;
+				case 65:  updateScore("s-"); break;
+			}
 
-	DataBus.register(/^(games.(.+).state.score)/, function(data, match){
-		var path = match[1];
-		var score = Tree.select(data, path);
-
-		var stud = 0;
-		var prof = 0;
-
-		if(score) $.each(score, function(i, v){
-			if(v.winner == "stud")
-				stud++;
-
-			if(v.winner == "prof")
-				prof++;
-
+			return false;
 		});
-
-		Bindings.set(path+":total.stud", stud.toString());
-		Bindings.set(path+":total.prof", prof.toString());
-
-		if(	(typeof our.score.prof !== 'undefined') &&
-			(typeof our.score.stud !== 'undefined') &&
-			((our.score.prof < prof) || (our.score.stud < stud))
-		)
-			Audio.play("score");
-
-		our.score.prof = prof;
-		our.score.stud = stud;
-
 	});
 
-
 	// --- PUBLIC FUNCTIONS ---
+	self.drawOverlay = function(args, gc){
+		$el = $(StacheOverlay({round: gc.getRound()}));
+		Bindings.rebind($el);
+		return $el;
+
+	};
 
     self.drawBeamer = function(gc){
 		$el = $(StacheBeamer({ number : gc.getRound() }));
@@ -63,31 +71,18 @@ define(function(require){
 
     };
 
-	self.drawControl = function(gc) {
-		var $el = $("<div>").html(StacheMod());
-		var winnerPath = "games."+gc.getData().active+".state.score."+gc.getStroke()+".winner";
+	self.drawControl = function(args, gc) {
+		$el = $(StacheControl({ number : gc.getRound() }));
+		Bindings.rebind($el);
 
-		$el.find("[name]").click(function(){
-			var name = $(this).attr("name");
-			if(name == "none") name = null;
-			DataBus.send(winnerPath, name);
-
-		});
-
-		var winner = DataBus.getDataByPath(winnerPath);
-
-		$el.find("[name]").each(function(i, btn){
-			var $btn = $(btn);
-			var name = $btn.attr("name");
-			if(winner == name)
-				$btn.addClass("btn-success");	
-
-			if(name == "none" && !winner)
-				$btn.addClass("btn-danger");
+		$el.find("[data-action]").click(function(){
+			var $btn = $(this);
+			var action = $btn.data("action");
+			updateScore(action);
 
 		});
 
-		return $el;
+        return $el;
 
 	};
 

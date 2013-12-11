@@ -66,7 +66,6 @@ define(function(require){
 
 		our.pred = curr;
 
-		console.log(our.$beamer);
 		return our.$beamer;
 
     };

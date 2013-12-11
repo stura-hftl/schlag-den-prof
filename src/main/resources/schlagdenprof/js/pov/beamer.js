@@ -49,7 +49,7 @@ define(function(require){
 
         });
 
-        DataBus.register("game", function(data){
+        DataBus.register(/^games.(.+).state/, function(data){
             GameManager.drawGameFrame(data);
 
         });

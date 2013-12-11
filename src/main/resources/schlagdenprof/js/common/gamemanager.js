@@ -14,6 +14,8 @@ define(function(require){
     }
 
     var self = {};
+	var our = {};
+	our.$overlays = $();
 
     var replace = function($root, $el, fnIn, fnOut) {
         $root.children().not($el).filter(":visible").remove();
@@ -36,11 +38,24 @@ define(function(require){
 			var $el = Games[gc.getType()].drawBeamer(gc);
 			$("#game-content").html($el);
 
+			var $overlays = $();
+
+			$.each(game.overlay, function(i, config){
+				var type = config[0];
+				var args = config.slice(1);
+				var $el = Games[type].drawOverlay(args, gc);
+
+				$overlays = $overlays.add($el);
+
+			});
+
+			$("#game-overlays").html($overlays);
+
 		}
 
     };
 
-    self.drawModControl = function(data) {
+    self.drawStrokeControl = function(data) {
         var active = data.active;
         var game = data.games[active];
         var step = data.step;
@@ -66,6 +81,7 @@ define(function(require){
 			var meta = {};
 			meta.name = Games[type].name;
             meta.pos = pos;
+			meta.info = "nope";
 
             if(step === pos)
                 meta.active = true;
@@ -90,25 +106,37 @@ define(function(require){
             }
         });
 		
-		$container.find("[data-content]").each(function(i,el){
-			var $el = $(el);
-
-			if($el.data("content") != "control-panel")
-				return;
-
-			var pos = $el.data("pos");
-			var gc = GameContext(data, null, pos);
-
-			var $control = Games[gc.getType()].drawControl(gc);
-			$el.html($control);
-
-		});
-
-
         replace($("#mod-control"), $container);
         $("#mod-control").parents(".panel").show();
 
     };
+
+	self.drawOverlayControl = function(data) {
+		var $container = $("#mod-overlays");
+		var $overlays = $();
+		var Stache = require("stache!html/mod-overlay-control");
+
+		if(data.games && data.active &&
+			data.games[data.active] &&
+			data.games[data.active].overlay)
+		{
+			$.each(data.games[data.active].overlay, function(i, config){
+				var type = config[0];
+				var args = config.slice(1);
+
+				var $el = $(Stache({name:Games[type].name}));
+
+				$el.find(".panel-body").html(
+					Games[type].drawControl(args, GameContext(data))
+				);
+				$overlays = $overlays.add($el);
+
+			});
+	   	}
+
+		$container.html($overlays);
+
+	};
 
     return self;
 
