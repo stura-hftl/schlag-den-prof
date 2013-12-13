@@ -8,12 +8,19 @@ define(function(require){
 		var our = {};
 
 		// --- PRIVATE VARS ---
+		if(!data)
+			data = DataBus.getData();
+
 		our.data = Tree.deepcopy(data);
 		our.round = round;   // number of game
 		our.stroke = stroke; // number of position in the game (seq. pos.)
 
 		if(typeof our.round !== 'string' || typeof our.round !== 'number')
 			our.round = data.active;
+
+		if(typeof our.stroke !== 'string' || typeof our.stroke !== 'number')
+			our.stroke = data.step;
+
 
 
 		// --- PUBLIC FUNCTIONS ---
@@ -39,7 +46,7 @@ define(function(require){
 		};
 
 		self.getConfig = function() {
-			return self.getGame().sequence[stroke-1];
+			return self.getGame().sequence[our.stroke-1];
 		};
 
 		self.getType = function() {

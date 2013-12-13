@@ -6,11 +6,13 @@ define(function(require){
 	var Tree = require("common/tree");
 	var Bindings = require("common/bindings");
 	var DataBus = require("common/databus");
+	var GameContext = require("common/gamecontext");
+	var Audio = require("common/audio");
+
 	var StacheMod = require("stache!html/game-score-mod");
 	var StacheControl = require("stache!html/game-score-control");
 	var StacheBeamer = require("stache!html/game-score-beamer");
 	var StacheOverlay = require("stache!html/game-score-overlay");
-	var Audio = require("common/audio");
 
 	// --- PRIVATE VARS ---
 
@@ -18,6 +20,8 @@ define(function(require){
 	};
 
 	var updateScore = function(action) {
+		var gc = GameContext();
+
 		var path = "games."+DataBus.get("active")+".state.score.total";
 
 		var scores = DataBus.get(path);
@@ -34,6 +38,13 @@ define(function(require){
 		}
 
 		DataBus.send(path, scores);
+
+		if(action[1] == "+" && gc.getType() != 'score') {
+			var step = DataBus.get("step");
+			DataBus.send("step", step+1);
+		}
+
+
 	};
 
 
@@ -44,12 +55,29 @@ define(function(require){
 	// --- STATIC BLOCK ---
 	$(function(){
 		$("body").keyup(function(e){
+			var action = "";
+
 			switch(e.which){
-				case 219: updateScore("p+"); break;
-				case 79:  updateScore("p-"); break;
-				case 68:  updateScore("s+"); break;
-				case 65:  updateScore("s-"); break;
+				case 80:
+					action += "p";
+					break;
+
+				case 83:
+					action += "s";
+					break;
+
+				default:
+					return false;
 			}
+
+			if(e.shiftKey)
+				action += "-";
+			else
+				action += "+";
+
+			console.log(action);
+
+			updateScore(action);
 
 			return false;
 		});
