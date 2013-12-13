@@ -89,8 +89,15 @@ define(function(require){
 	self.drawPlayer = function(gc, player){
 		var display = gc.getState("display", "question");
 
-		if(display != "input")
+		if(display != "input"){
+			our.lastInput = null;
 			return "";
+		}
+
+		// don't redraw on same position
+		if(our.lastInput && our.lastInput.gc.isSamePosition(gc))
+			return our.lastInput.$el;
+
 
 		var $el = $("<div>");
 		var $input = $("<input>");
@@ -98,6 +105,17 @@ define(function(require){
 		$el.addClass("layer layer-c layer-input");
 		$el.css("height", "200px");
 		$el.append($input);
+
+		$input.keyup(function(){
+			var state = { input: {} };
+			state.input[player] = $input.val();
+			gc.sendState(state);
+		});
+
+		our.lastInput = {
+			gc:gc,
+			"$el": $el
+		};
 		
 		return $el;
 
