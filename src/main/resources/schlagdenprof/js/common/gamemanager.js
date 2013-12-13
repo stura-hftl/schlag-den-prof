@@ -11,11 +11,13 @@ define(function(require){
 		mappick : require("games/mappick"),
 		text : require("games/text"),
 		countdown : require("games/countdown"),
+		question : require("games/question")
     }
 
     var self = {};
 	var our = {};
 	our.$overlays = $();
+	our.player = null;
 
     var replace = function($root, $el, fnIn, fnOut) {
         $root.children().not($el).filter(":visible").remove();
@@ -40,6 +42,7 @@ define(function(require){
 
 			var $overlays = $();
 
+			if(game.overlay)
 			$.each(game.overlay, function(i, config){
 				var type = config[0];
 				var args = config.slice(1);
@@ -51,6 +54,11 @@ define(function(require){
 
 			$("#game-overlays").html($overlays);
 
+			if(our.player && Games[gc.getType()].drawPlayer) {
+				var $el = Games[gc.getType()].drawPlayer(gc, our.player);
+				$("#game-player-input").html($el);
+			}
+
 		}
 
     };
@@ -59,6 +67,7 @@ define(function(require){
         var active = data.active;
         var game = data.games[active];
         var step = data.step;
+		var gc = GameContext(data);
 
         if(!game) {
             $("#mod-control").parents(".panel").hide();
@@ -109,6 +118,11 @@ define(function(require){
         replace($("#mod-control"), $container);
         $("#mod-control").parents(".panel").show();
 
+		var Stache = require("stache!html/mod-overlay-control");
+		var $el = $(Stache({name:Games[gc.getType()].name}));
+		$("#mod-fuck-it").html($el);
+		$el.find(".panel-body").html(Games[gc.getType()].drawControl(gc));
+		
     };
 
 	self.drawOverlayControl = function(data) {
@@ -136,6 +150,10 @@ define(function(require){
 
 		$container.html($overlays);
 
+	};
+
+	self.setPlayer = function(player) {
+		our.player = player;
 	};
 
     return self;

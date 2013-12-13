@@ -8,9 +8,9 @@ import java.nio.file.Paths;
 
 import javax.websocket.DeploymentException;
 
-import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
+import org.glassfish.grizzly.http.server.StaticHttpHandlerBase;
 import org.glassfish.tyrus.server.Server;
 
 public class SchlagDenProf {
@@ -70,9 +70,13 @@ public class SchlagDenProf {
 		httpServer = HttpServer
 				.createSimpleServer("/", HTTP_PORT);
 
-		HttpHandler staticHandler = new FixedCLStaticHttpHandler(
+		StaticHttpHandlerBase staticHandler = new FixedCLStaticHttpHandler(
 				getClass().getClassLoader(), STATIC_DIR);
-		HttpHandler dataHandler = new StaticHttpHandler(dataPath.toString());
+		StaticHttpHandlerBase dataHandler = new StaticHttpHandler(
+				dataPath.toString());
+
+		staticHandler.setFileCacheEnabled(false);
+		dataHandler.setFileCacheEnabled(true);
 
 		httpServer.getServerConfiguration()
 				.addHttpHandler(dataHandler, "/data/");

@@ -27,11 +27,30 @@
 
 
 .layer-bigtext {
-	line-height: 100px; height: 200px; font-size: 100px;
+	line-height: 100px; height: 120px; font-size: 100px;
 	font-weight: bold;
+	padding: 40px;
+}
+
+.layer-text {
+	line-height: 50px; height: 60px; font-size: 50px;
+	padding: 20px;
+
 }
 
 .layer-bigimage img {
 	max-height: 100%;
 	max-width: 100%; 
 }
+
+.layer-input input {
+	font-size: 50px;
+	width: 80%;
+	background: black;
+	border: 1px solid white;
+	color: white;
+	padding: 10px;
+	text-align: center;
+
+}
+

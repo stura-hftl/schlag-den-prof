@@ -54,6 +54,7 @@ define(function(require){
 
 	// --- STATIC BLOCK ---
 	$(function(){
+		if(window.location.hash == '#mod')
 		$("body").keyup(function(e){
 			var action = "";
 

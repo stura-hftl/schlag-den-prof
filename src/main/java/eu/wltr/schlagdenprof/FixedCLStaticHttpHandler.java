@@ -20,8 +20,6 @@ public class FixedCLStaticHttpHandler extends CLStaticHttpHandler {
 		if (resourcePath.endsWith("/"))
 			resourcePath = resourcePath + "index.html";
 
-		setFileCacheEnabled(false);
-
 		return super.handle(resourcePath, request, response);
 
 	}

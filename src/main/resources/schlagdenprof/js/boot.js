@@ -6,10 +6,10 @@ define(function(require){
 	var DataBus = require("common/databus");
 	var Bindings = require("common/bindings");
 	var Audio = require("common/audio");
+	var GameManager = require("common/gamemanager");
 	
 	var PovMod = require("pov/mod");
 	var PovBeamer = require("pov/beamer");
-	var PovPlayer = require("pov/player");
 
 
 	var getURLParameter = function (name) {
@@ -21,11 +21,13 @@ define(function(require){
 	// --- STATIC BLOCK ---
 	switch(window.location.hash) {
 		case "#prof":
-			PovPlayer("prof");
+			PovBeamer();
+			GameManager.setPlayer("prof");
 			break;
 
 		case "#stud":
-			PovPlayer("stud");
+			PovBeamer();
+			GameManager.setPlayer("stud");
 			break;
 
 		case "#beamer":
