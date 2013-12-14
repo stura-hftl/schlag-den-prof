@@ -39,7 +39,10 @@ define(function(require){
 			try {
 				var gc = GameContext();
 				var $el = Games[gc.getType()].drawBeamer(gc);
-				$("#game-content").html($el);
+				if(!our.$lastBeamerElement || !our.$lastBeamerElement.is($el))
+					$("#game-content").html($el);
+				
+				our.$lastBeamerElement = $el;
 
 			} catch(e) {
 				return;

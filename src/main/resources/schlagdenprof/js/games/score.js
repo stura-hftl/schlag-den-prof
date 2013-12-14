@@ -39,10 +39,10 @@ define(function(require){
 
 		DataBus.send(path, scores);
 
-		if(action[1] == "+" && gc.getType() != 'score') {
-			var step = DataBus.get("step");
-			DataBus.send("step", step+1);
-		}
+		if(action[1] == "+" && gc.getType() != 'score')
+			require(["common/gamemanager"], function(GameManager){
+				GameManager.tick();
+			});
 
 
 	};
@@ -75,8 +75,6 @@ define(function(require){
 				action += "-";
 			else
 				action += "+";
-
-			console.log(action);
 
 			updateScore(action);
 

@@ -6,9 +6,6 @@ define(function(require){
 	var self = {};
 	var our = {};
 
-	self.drawOverlay = function(args, gc){
-	};
-
 	self.tick = function(gc) {
 		var display = gc.getState("display", "question");
 
@@ -29,6 +26,7 @@ define(function(require){
 		return true;
 
 	};
+
 
 	self.drawBeamer = function(gc){
 		var question = gc.getArg(0);
@@ -75,10 +73,6 @@ define(function(require){
 	};
 
 	self.drawControl = function(gc){
-		// don't redraw on same position
-		//if(our.lastControl && our.lastControl.gc.isSamePosition(gc))
-		//	return our.lastControl.$el;
-
 		var kwargs = gc.getArgs()[0];
 		var $control = $(StacheMod({
 			question : gc.getArg(0),
@@ -103,7 +97,6 @@ define(function(require){
 		});
 
 
-		our.lastControl = {gc:gc, "$el": $control}
 		return $control;
 
 	};
