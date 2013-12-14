@@ -9,6 +9,27 @@ define(function(require){
 	self.drawOverlay = function(args, gc){
 	};
 
+	self.tick = function(gc) {
+		var display = gc.getState("display", "question");
+
+		if(display == 'question')
+			gc.sendState({display: 'input'});
+
+		else if(display == 'input')
+			gc.sendState({display: 'output'});
+
+		else if(display == 'output')
+			gc.sendState({display: 'answer'})
+
+		else {
+			gc.sendState({display: null});
+			return false;
+		}
+
+		return true;
+
+	};
+
 	self.drawBeamer = function(gc){
 		var question = gc.getArg(0);
 		var answer = gc.getArg(1);
@@ -17,6 +38,7 @@ define(function(require){
 		$el.addClass("layer layer-crophud");
 
 		var display = gc.getState("display", "question");
+		var answers = gc.getState("input", {});
 
 		switch(display) {
 			case "answer":
@@ -29,13 +51,13 @@ define(function(require){
 			case "output":
 				$el.prepend(
 					$("<div>").
-					addClass("layer layer-e layer-text").
-					text("Stud")
+					addClass("layer layer-w layer-text").
+					text((answers.prof)?answers.prof:'')
 				);
 				$el.prepend(
 					$("<div>").
-					addClass("layer layer-w layer-text").
-					text("Prof")
+					addClass("layer layer-e layer-text").
+					text((answers.stud)?answers.stud:'')
 				);
 			case "input":
 			case "question":

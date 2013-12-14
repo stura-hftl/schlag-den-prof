@@ -124,9 +124,15 @@ define(function(require){
         $("#mod-control").parents(".panel").show();
 
 		var Stache = require("stache!html/mod-overlay-control");
-		var $el = $(Stache({name:Games[gc.getType()].name}));
-		$("#mod-fuck-it").html($el);
-		$el.find(".panel-body").html(Games[gc.getType()].drawControl(gc));
+		var game = Games[gc.getType()];
+
+		if(game) {
+			var $el = $(Stache({
+				name: game.name
+			}));
+			$("#mod-fuck-it").html($el);
+			$el.find(".panel-body").html(Games[gc.getType()].drawControl(gc));
+		}
 		
     };
 
@@ -159,6 +165,51 @@ define(function(require){
 
 	self.setPlayer = function(player) {
 		our.player = player;
+	};
+
+	self.tick = function() {
+		var gc = GameContext();
+		var game = Games[gc.getType()];
+		var beamerShow = DataBus.get("beamer.show");
+		var round = gc.getRound();
+		var stroke = gc.getStroke();
+
+		console.log(gc, game, beamerShow, round, stroke);
+
+		if(!round) {
+		   	if(beamerShow != 'logo')
+				DataBus.send("beamer.show", "logo");
+			else
+				DataBus.send("", {
+					step: 0,
+					active: 1,
+					beamer: {show: "gameframe"}
+				});
+
+		}
+
+		else if(beamerShow != 'gameframe') {
+			DataBus.send("beamer.show", "gameframe");
+
+		}
+
+		else if(!stroke || stroke < 1) {
+			DataBus.send("step", 1);
+
+		}
+
+		else if(stroke < gc.getGame().sequence.length) {
+			if(!game.tick || !game.tick(gc))
+				DataBus.send("step", gc.getStroke()+1);
+
+		}
+
+		else {
+			DataBus.send("beamer.show", "scores");
+			DataBus.send("active", round+1);
+			DataBus.send("step", 0);
+
+		}
 	};
 
     return self;

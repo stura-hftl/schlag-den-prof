@@ -34,19 +34,22 @@ define(function(require){
 		};
 
 		self.getRound = function() {
-			return our.round;
+			return our.round || 0;
 		};
 
 		self.getStroke = function() {
-			return our.stroke;
+			return our.stroke || 0;
 		};
 
 		self.getGame = function() {
-			return data.games[our.round];
+			return data.games[self.getRound()] || null;
 		};
 
 		self.getConfig = function() {
-			return self.getGame().sequence[our.stroke-1];
+			if(self.getGame())
+				return self.getGame().sequence[self.getStroke()-1] || [];
+			else
+				return [];
 		};
 
 		self.getType = function() {
