@@ -100,7 +100,7 @@ define(function(require){
 
     };
 
-	self.drawControl = function(args, gc) {
+	self.drawControl = function(gc) {
 		$el = $(StacheControl({ number : gc.getRound() }));
 		Bindings.rebind($el);
 

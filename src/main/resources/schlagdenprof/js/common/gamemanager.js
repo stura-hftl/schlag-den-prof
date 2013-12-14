@@ -36,9 +36,15 @@ define(function(require){
 			$("#game-content").html("");
 
 		} else {
-			var gc = GameContext(data, data.active, step);
-			var $el = Games[gc.getType()].drawBeamer(gc);
-			$("#game-content").html($el);
+			try {
+				var gc = GameContext();
+				var $el = Games[gc.getType()].drawBeamer(gc);
+				$("#game-content").html($el);
+
+			} catch(e) {
+				return;
+
+			}
 
 			var $overlays = $();
 
@@ -152,7 +158,7 @@ define(function(require){
 				var $el = $(Stache({name:Games[type].name}));
 
 				$el.find(".panel-body").html(
-					Games[type].drawControl(args, GameContext(data))
+					Games[type].drawControl(GameContext(data), args)
 				);
 				$overlays = $overlays.add($el);
 
@@ -173,8 +179,6 @@ define(function(require){
 		var beamerShow = DataBus.get("beamer.show");
 		var round = gc.getRound();
 		var stroke = gc.getStroke();
-
-		console.log(gc, game, beamerShow, round, stroke);
 
 		if(!round) {
 		   	if(beamerShow != 'logo')
