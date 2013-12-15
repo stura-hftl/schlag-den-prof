@@ -37,11 +37,11 @@ define(function(require){
 			case "s-": scores.stud--; break;
 		}
 
-		DataBus.send(path, scores);
 
 		if(action[1] == "+" && gc.getType() != 'score')
 			require(["common/gamemanager"], function(GameManager){
 				GameManager.tick();
+				DataBus.send(path, scores);
 			});
 
 
