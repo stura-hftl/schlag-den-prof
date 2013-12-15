@@ -45,7 +45,7 @@ define(function(require){
 			var $beamer = $(StacheBeamer());
 			var $canvas = $beamer.find("#mappick_canvas");
 			map = Map($canvas, kwargs.bounds);
-			map.setMarker("center", kwargs.target[0], kwargs.target[1]);
+			//
 
 			our.lastBeamer = {
 				gc: gc,
@@ -54,6 +54,18 @@ define(function(require){
 			};
 
 		}
+		
+		switch(display) {
+			case 'answer':
+				map.setMarker("solution", kwargs.target[0], kwargs.target[1]);
+
+			case 'output':
+				var inputs = gc.getState("input", {});
+				map.setMarker("prof", inputs.prof[0], inputs.prof[1]);
+				map.setMarker("stud", inputs.stud[0], inputs.stud[1]);
+			
+
+		};
 
 
 		window.setTimeout(map.resize, 200);
@@ -74,16 +86,34 @@ define(function(require){
 			return "";
 		}
 
+		// don't redraw on same position
+		if(our.lastInput && our.lastInput.gc.isSamePosition(gc))
+			return our.lastInput.$el;
+
+
 		var $input = $(StacheBeamer());
 		var $canvas = $input.find("#mappick_canvas");
 
 		map = Map($canvas, kwargs.bounds);
-		map.setMarker("center", kwargs.target[0], kwargs.target[1]);
+		map.setCenterMarker(player, function(e){
+			var state = { input: {}};
+			state.input[player] = [
+				e.latLng.lat().toFixed(10),
+				e.latLng.lng().toFixed(10)
+			];
+			gc.sendState(state);
+
+		});
 
 		window.setTimeout(map.resize, 200);
 		window.setTimeout(map.resize, 400);
 		window.setTimeout(map.resize, 800);
 		window.setTimeout(map.resize, 1600);
+
+		our.lastInput = {
+			gc:gc,
+			"$el": $input
+		};
 
 		return $input;
 

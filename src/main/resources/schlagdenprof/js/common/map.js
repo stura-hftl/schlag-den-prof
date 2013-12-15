@@ -11,6 +11,11 @@ define(function(require){
 			{ elementType: "labels", stylers: [ { visibility: "off" } ] },
 		];
 		our.styles.finish = [];
+		our.icons = {
+			'prof': 'img/mapmarkers/marker_prof.png',
+			'stud': 'img/mapmarkers/marker_student.png',
+			'solution': 'img/mapmarkers/marker_solution.png'
+		}
 
 		// --- PSEUDO CONSTRUCTOR ---
 		// called at bottom
@@ -29,6 +34,7 @@ define(function(require){
 				draggable: false,
 				styles: our.styles.running,
 				scrollwheel: false,
+				disableDoubleClickZoom: true
 
 			});
 
@@ -49,14 +55,27 @@ define(function(require){
 
 		}
 
-		self.setMarker = function(key, lat, lng){
+		self.setMarker = function(key, lat, lng, fn){
 			var latlng = new google.maps.LatLng(lat, lng);
 			var marker = new google.maps.Marker({
 				position: latlng,
 				draggable: true,
-				icon: "img/mapmarkers/marker_solution.png"
+				icon: our.icons[key]
 			});
 			marker.setMap(our.map);
+
+			if(fn)
+				google.maps.event.addListener(marker, 'dragend', fn);
+
+		}
+
+		self.setCenterMarker = function(key, fn) {
+			var latlng = our.map.getCenter();
+
+			var lat = latlng.lat();
+			var lng = latlng.lng();
+
+			self.setMarker(key, lat, lng, fn);
 
 		}
 		
