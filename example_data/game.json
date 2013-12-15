@@ -1,7 +1,7 @@
 {
     "names" : {
-        "prof" : "Prof. X",
-        "stud" : "Klaus"
+        "prof" : "Prof. Bunge",
+        "stud" : "Timmy Klaus"
     },
 	"beamer":{
 		"show" : "logo"
@@ -65,7 +65,7 @@
             ]
 		},
 		"6": {
-			"name": "Wo ist das?",
+			"name": "Wo ist was?",
             "sequence": [
                 ["mappick", {
 					"label": "HfTL",
@@ -75,6 +75,19 @@
 						[51.305909, 12.367251]
 					]
 				}]
+            ]
+		},
+		"7": {
+			"name": "Schätzen",
+            "sequence": [
+                ["score"]
+            ]
+		},
+		"8": {
+			"name": "Bierkrug halten",
+            "sequence": [
+                ["countup"],
+                ["score"]
             ]
 		}
     }
