@@ -38,11 +38,11 @@ define(function(require){
 		}
 
 
-		if(action[1] == "+" && gc.getType() != 'score')
-			require(["common/gamemanager"], function(GameManager){
+		require(["common/gamemanager"], function(GameManager){
+			if(action[1] == "+" && gc.getType() != 'score')
 				GameManager.tick();
-				DataBus.send(path, scores);
-			});
+			DataBus.send(path, scores);
+		});
 
 
 	};
