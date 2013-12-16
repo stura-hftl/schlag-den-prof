@@ -61,8 +61,7 @@ define(function(require){
 			var marker = new google.maps.Marker({
 				position: latlng,
 				draggable: true,
-				icon: our.icons[key],
-				zIndex: 99999
+				icon: our.icons[key]
 			});
 			marker.setMap(our.map);
 

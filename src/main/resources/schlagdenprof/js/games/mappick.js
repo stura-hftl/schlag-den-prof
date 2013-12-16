@@ -50,9 +50,11 @@ define(function(require){
 				gc: gc,
 				"$el": $beamer,
 				map : map,
-				$text : $beamer.find("#mappick-title")
+				$text : $beamer.find("#mappick-title"),
+				$dProf: $beamer.find("#mappick-prof"),
+				$dStud: $beamer.find("#mappick-stud"),
 			};
-			our.lastBeamer.$text.html("gasdasdg");
+			our.lastBeamer.$text.html(kwargs.label);
 
 		}
 
@@ -60,13 +62,30 @@ define(function(require){
 		map.hideMarker("prof");
 		map.hideMarker("stud");
 		
+		var inputs = gc.getState("input", {});
+
 		switch(display) {
 			case 'answer':
+				var latlng = new google.maps.LatLng(kwargs.target[0], kwargs.target[1]);
+				var latlngP = new google.maps.LatLng(inputs.prof[0], inputs.prof[1]);
+				var latlngS = new google.maps.LatLng(inputs.stud[0], inputs.stud[1]);
+
 				map.setMarker("solution", kwargs.target[0], kwargs.target[1]);
+				
+
+				var dProf = google.maps.geometry.spherical.computeDistanceBetween(
+						latlng, latlngP);
+				var dStud = google.maps.geometry.spherical.computeDistanceBetween(
+						latlng, latlngS);
+
+				console.log("----------------");
+				our.lastBeamer.$dProf.text("" + Math.round(dProf) + "m");
+				our.lastBeamer.$dProf.show();
+				our.lastBeamer.$dStud.text("" + Math.round(dStud) + "m");
+				our.lastBeamer.$dStud.show();
 				// no break!
 
 			case 'output':
-				var inputs = gc.getState("input", {});
 				map.setMarker("prof", inputs.prof[0], inputs.prof[1]);
 				map.setMarker("stud", inputs.stud[0], inputs.stud[1]);
 				our.lastBeamer.$text.hide();
