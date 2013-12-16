@@ -16,6 +16,7 @@ define(function(require){
 			'stud': 'img/mapmarkers/marker_student.png',
 			'solution': 'img/mapmarkers/marker_solution.png'
 		}
+		our.markers = {};
 
 		// --- PSEUDO CONSTRUCTOR ---
 		// called at bottom
@@ -60,9 +61,12 @@ define(function(require){
 			var marker = new google.maps.Marker({
 				position: latlng,
 				draggable: true,
-				icon: our.icons[key]
+				icon: our.icons[key],
+				zIndex: 99999
 			});
 			marker.setMap(our.map);
+
+			our.markers[key] = marker;
 
 			if(fn)
 				google.maps.event.addListener(marker, 'dragend', fn);
@@ -78,6 +82,13 @@ define(function(require){
 			self.setMarker(key, lat, lng, fn);
 
 		}
+
+		self.hideMarker = function(key) {
+			if(our.markers[key]) {
+				our.markers[key].setMap(null);
+				our.markers[key] = null;
+			}
+		};
 		
 		init();
 		return self;

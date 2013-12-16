@@ -45,25 +45,36 @@ define(function(require){
 			var $beamer = $(StacheBeamer());
 			var $canvas = $beamer.find("#mappick_canvas");
 			map = Map($canvas, kwargs.bounds);
-			//
 
 			our.lastBeamer = {
 				gc: gc,
 				"$el": $beamer,
-				map : map
+				map : map,
+				$text : $beamer.find("#mappick-title")
 			};
+			our.lastBeamer.$text.html("gasdasdg");
 
 		}
+
+		map.hideMarker("solution");
+		map.hideMarker("prof");
+		map.hideMarker("stud");
 		
 		switch(display) {
 			case 'answer':
 				map.setMarker("solution", kwargs.target[0], kwargs.target[1]);
+				// no break!
 
 			case 'output':
 				var inputs = gc.getState("input", {});
 				map.setMarker("prof", inputs.prof[0], inputs.prof[1]);
 				map.setMarker("stud", inputs.stud[0], inputs.stud[1]);
-			
+				our.lastBeamer.$text.hide();
+
+				break;
+
+			case 'input':
+				our.lastBeamer.$text.show();
 
 		};
 
@@ -93,6 +104,7 @@ define(function(require){
 
 		var $input = $(StacheBeamer());
 		var $canvas = $input.find("#mappick_canvas");
+		$input.filter(".player-hide").hide();
 
 		map = Map($canvas, kwargs.bounds);
 		map.setCenterMarker(player, function(e){
