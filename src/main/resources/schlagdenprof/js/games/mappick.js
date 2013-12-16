@@ -72,17 +72,23 @@ define(function(require){
 
 				map.setMarker("solution", kwargs.target[0], kwargs.target[1]);
 				
+				if(display == 'answer') {
+					var dProf = google.maps.geometry.spherical.computeDistanceBetween(
+							latlng, latlngP);
+					var dStud = google.maps.geometry.spherical.computeDistanceBetween(
+							latlng, latlngS);
 
-				var dProf = google.maps.geometry.spherical.computeDistanceBetween(
-						latlng, latlngP);
-				var dStud = google.maps.geometry.spherical.computeDistanceBetween(
-						latlng, latlngS);
+					our.lastBeamer.$dProf.text("" + Math.round(dProf) + "m");
+					our.lastBeamer.$dProf.show();
+					our.lastBeamer.$dStud.text("" + Math.round(dStud) + "m");
+					our.lastBeamer.$dStud.show();
+				}
+				else {
+					our.lastBeamer.$dStud.hide();
+					our.lastBeamer.$dProf.hide();
 
-				console.log("----------------");
-				our.lastBeamer.$dProf.text("" + Math.round(dProf) + "m");
-				our.lastBeamer.$dProf.show();
-				our.lastBeamer.$dStud.text("" + Math.round(dStud) + "m");
-				our.lastBeamer.$dStud.show();
+				}
+
 				// no break!
 
 			case 'output':
