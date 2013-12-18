@@ -144,13 +144,6 @@ define(function(require){
 		$old.remove();
         $("#mod-control").parents(".panel").show();
 
-		var $activeButton = $("[data-pos='"+step+"'][data-action='jump']");
-		if($activeButton.offset())
-			$('html, body').animate({
-				"scrollTop":
-				$activeButton.offset().top - 100
-			},0);
-
 		var Stache = require("stache!html/mod-overlay-control");
 		var game = Games[gc.getType()];
 
@@ -162,6 +155,13 @@ define(function(require){
 			$el.find(".panel-body").html(Games[gc.getType()].drawControl(gc));
 		}
 		
+		var $activeButton = $("[data-pos='"+step+"'][data-action='jump']");
+		if($activeButton.offset())
+			$('html, body').animate({
+				"scrollTop":
+				$activeButton.offset().top - 100
+			}, 0);
+
     };
 
 	self.drawOverlayControl = function(data) {
