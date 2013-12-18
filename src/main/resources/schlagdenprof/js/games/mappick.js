@@ -96,6 +96,8 @@ define(function(require){
 
 				}
 
+				map.setStyle('finish');
+
 				// no break!
 
 			case 'output':

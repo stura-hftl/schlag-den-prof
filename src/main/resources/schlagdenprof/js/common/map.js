@@ -88,6 +88,12 @@ define(function(require){
 				our.markers[key] = null;
 			}
 		};
+
+		self.setStyle = function(name) {
+			our.map.setOptions({
+				styles: our.styles[name]
+			});
+		};
 		
 		init();
 		return self;
