@@ -21,6 +21,10 @@ define(function(require){
 	// --- STATIC BLOCK ---
 
 	// --- PUBLIC FUNCTIONS ---
+	
+	self.getInfo = function(args) {
+		return args;
+	};
 
     self.drawBeamer = function(gc){
 		var width = (100 / gc.getArgs().length)-3;

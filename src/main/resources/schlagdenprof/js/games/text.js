@@ -9,6 +9,11 @@ define(function(require){
 	self.name = "Text"
 
 	// --- PUBLIC FUNCTIONS ---
+	
+	self.getInfo = function(args) {
+		return args[0];
+	};
+
 	self.drawBeamer = function(gc){
 		var ctx = {
 			text : gc.getArg(0)

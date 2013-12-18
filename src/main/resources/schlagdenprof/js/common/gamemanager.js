@@ -110,7 +110,10 @@ define(function(require){
 			var meta = {};
 			meta.name = Games[type].name;
             meta.pos = pos;
-			meta.info = "nope";
+			meta.info = "";
+
+			if(Games[type].getInfo)
+				meta.info = Games[type].getInfo(args);
 
             if(step === pos)
                 meta.active = true;
@@ -243,6 +246,7 @@ define(function(require){
 			var pos = i+1;
 			if(pos >= stroke && config[0] == game) {
 				DataBus.send("step", pos);
+				return false;
 			}
 		});
 	};
