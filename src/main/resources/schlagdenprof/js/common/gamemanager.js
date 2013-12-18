@@ -34,6 +34,7 @@ define(function(require){
 
         if(!game || !step) {
 			$("#game-content").html("");
+			$("#game-player-input").html("");
 
 		} else {
 			try {
@@ -65,13 +66,16 @@ define(function(require){
 
 			if(our.player && Games[gc.getType()].drawPlayer) {
 				var $el = Games[gc.getType()].drawPlayer(gc, our.player);
-				if(!our.$lastPlayerElement || !our.$lastPlayerElement.is($el)){
-					console.log($el);
+				if(!our.$lastPlayerElement || !our.$lastPlayerElement.is($el))
 					$("#game-player-input").html($el);
-					$("input").select();
-				}
+				else
+					$("#game-player-input").html("");
+
+				$("input").select();
 				our.$lastPlayerElement = $el;
 
+			} else {
+				$("#game-player-input").html("");
 			}
 
 		}
