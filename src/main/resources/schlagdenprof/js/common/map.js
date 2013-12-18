@@ -52,6 +52,9 @@ define(function(require){
 			// WORKAROUND: Make sure google checks div resize.
 			//             This might fail ...
 			google.maps.event.trigger(our.map, "resize");
+
+			if(our.zoom)
+				self.zoomToMarkers();
 			
 
 		}
@@ -93,6 +96,57 @@ define(function(require){
 			our.map.setOptions({
 				styles: our.styles[name]
 			});
+		};
+
+		/**
+		* Returns the zoom level at which the given rectangular region fits in the map view. 
+		* The zoom level is computed for the currently selected map type. 
+		* @param {google.maps.Map} map
+		* @param {google.maps.LatLngBounds} bounds 
+		* @return {Number} zoom level
+		**/
+		getZoomByBounds = function(bounds){
+		  var MAX_ZOOM = our.map.mapTypes.get( our.map.getMapTypeId() ).maxZoom || 21 ;
+		  var MIN_ZOOM = our.map.mapTypes.get( our.map.getMapTypeId() ).minZoom || 0 ;
+
+		  var ne = our.map.getProjection().fromLatLngToPoint( bounds.getNorthEast() );
+		  var sw = our.map.getProjection().fromLatLngToPoint( bounds.getSouthWest() ); 
+
+		  var worldCoordWidth = Math.abs(ne.x-sw.x);
+		  var worldCoordHeight = Math.abs(ne.y-sw.y);
+
+		  //Fit padding in pixels 
+		  var FIT_PAD = 40;
+
+		  for( var zoom = MAX_ZOOM; zoom >= MIN_ZOOM; --zoom ){ 
+			  if( worldCoordWidth*(1<<zoom)+2*FIT_PAD < $(our.map.getDiv()).width() && 
+				  worldCoordHeight*(1<<zoom)+2*FIT_PAD < $(our.map.getDiv()).height() )
+				  return zoom;
+		  }
+		  return 0;
+		};
+
+		self.zoomToMarkers = function() {
+			our.zoom = true;
+
+			var b = new google.maps.LatLngBounds();
+
+			if(our.markers.solution)
+				b = b.extend(our.markers.solution.getPosition());
+
+			if(our.markers.prof)
+				b = b.extend(our.markers.prof.getPosition());
+
+			if(our.markers.stud)
+				b = b.extend(our.markers.stud.getPosition());
+
+			var zoom = getZoomByBounds(b);
+
+			our.map.setZoom(zoom-1);
+			our.map.setCenter(b.getCenter());
+
+			//our.map.panToBounds(b);
+
 		};
 		
 		init();

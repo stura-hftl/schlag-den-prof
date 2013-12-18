@@ -28,6 +28,9 @@ define(function(require){
 		else if(display == 'output')
 			gc.sendState({display: 'answer'})
 
+		else if(display == 'answer')
+			gc.sendState({display: 'zoom'})
+
 		else {
 			gc.sendState({display: null});
 			return false;
@@ -68,27 +71,45 @@ define(function(require){
 		map.hideMarker("solution");
 		map.hideMarker("prof");
 		map.hideMarker("stud");
-		
+
 		var inputs = gc.getState("input", {});
 
 		switch(display) {
+
+			case 'zoom':
+
 			case 'answer':
-				var latlng = new google.maps.LatLng(kwargs.target[0], kwargs.target[1]);
-				var latlngP = new google.maps.LatLng(inputs.prof[0], inputs.prof[1]);
-				var latlngS = new google.maps.LatLng(inputs.stud[0], inputs.stud[1]);
 
 				map.setMarker("solution", kwargs.target[0], kwargs.target[1]);
 				
-				if(display == 'answer') {
-					var dProf = google.maps.geometry.spherical.computeDistanceBetween(
-							latlng, latlngP);
-					var dStud = google.maps.geometry.spherical.computeDistanceBetween(
-							latlng, latlngS);
+				if(display == 'answer' || display == 'zoom') {
+					var latlng = new google.maps.LatLng(kwargs.target[0], kwargs.target[1]);
 
-					our.lastBeamer.$dProf.text("" + Math.round(dProf) + "m");
-					our.lastBeamer.$dProf.show();
-					our.lastBeamer.$dStud.text("" + Math.round(dStud) + "m");
-					our.lastBeamer.$dStud.show();
+					if(inputs.prof) {
+						var latlngP = new google.maps.LatLng(inputs.prof[0], inputs.prof[1]);
+						var dProf = google.maps.geometry.spherical.computeDistanceBetween(
+								latlng, latlngP);
+						our.lastBeamer.$dProf.text("" + Math.round(dProf) + "m");
+						our.lastBeamer.$dProf.show();
+					} else {
+						our.lastBeamer.$dProf.text("- m");
+						our.lastBeamer.$dProf.show();
+
+					}
+
+
+					if(inputs.stud) {
+						var latlngS = new google.maps.LatLng(inputs.stud[0], inputs.stud[1]);
+						var dStud = google.maps.geometry.spherical.computeDistanceBetween(
+								latlng, latlngS);
+						our.lastBeamer.$dStud.text("" + Math.round(dStud) + "m");
+						our.lastBeamer.$dStud.show();
+					} else {
+						our.lastBeamer.$dStud.text("- m");
+						our.lastBeamer.$dStud.show();
+
+					}
+
 				}
 				else {
 					our.lastBeamer.$dStud.hide();
@@ -101,9 +122,14 @@ define(function(require){
 				// no break!
 
 			case 'output':
-				map.setMarker("prof", inputs.prof[0], inputs.prof[1]);
-				map.setMarker("stud", inputs.stud[0], inputs.stud[1]);
+				if(inputs.prof)
+					map.setMarker("prof", inputs.prof[0], inputs.prof[1]);
+
+				if(inputs.stud)
+					map.setMarker("stud", inputs.stud[0], inputs.stud[1]);
+
 				our.lastBeamer.$text.hide();
+
 
 				break;
 
@@ -111,6 +137,9 @@ define(function(require){
 				our.lastBeamer.$text.show();
 
 		};
+
+		if(display == 'zoom')
+			map.zoomToMarkers();
 
 
 		window.setTimeout(map.resize, 200);
