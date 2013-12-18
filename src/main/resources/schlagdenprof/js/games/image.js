@@ -38,6 +38,7 @@ define(function(require){
 				left: (i*width+1)+"%"
 			};
 
+			our.$container.height("auto");
 
 			var $el;
 			if(our.pred[src]) {
@@ -54,9 +55,29 @@ define(function(require){
 				$el.css(css);
 				$el.append($img);
 
-				$el.hide();
+				$el.css("visibility", "hidden");
 				our.$container.append($el);
-				$el.fadeIn();
+
+
+				var height = function(){
+					if($img.height() == 0)
+						window.setTimeout(height, 50);
+					else {
+						our.$container.height($el.height());
+						our.$container.css("max-height", "100%");
+
+						$el.hide();
+						$el.css("visibility", "visible");
+						$el.fadeIn();
+
+						//$el.css("height", $el.height());
+						//$el.css("max-height", "100%");
+
+					}
+				};
+
+				height();
+
 
 			}
 
