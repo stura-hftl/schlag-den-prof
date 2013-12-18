@@ -12,6 +12,12 @@ define(function(require){
 	// --- PUBLIC FUNCTIONS ---
 	self.name = "Map-Pick";
 
+	self.getInfo = function(args) {
+		var kwargs = args[0];
+		return kwargs.label;
+
+	};
+
 	self.tick = function(gc) {
 		var display = gc.getState("display", "input");
 

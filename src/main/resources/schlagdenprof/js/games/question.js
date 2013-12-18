@@ -7,6 +7,12 @@ define(function(require){
 	var our = {};
 	our.defaultDisplay = 'input';
 
+	self.name = "Frage";
+
+	self.getInfo = function(args) {
+		return args[0];
+	};
+
 	self.tick = function(gc) {
 		var display = gc.getState("display", our.defaultDisplay);
 
