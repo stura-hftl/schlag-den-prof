@@ -39,8 +39,8 @@ define(function(require){
 
 
 		require(["common/gamemanager"], function(GameManager){
-			if(action[1] == "+" && gc.getType() != 'score')
-				GameManager.tick();
+			/*if(action[1] == "+" && gc.getType() != 'score')
+				GameManager.tick();*/
 			DataBus.send(path, scores);
 		});
 
