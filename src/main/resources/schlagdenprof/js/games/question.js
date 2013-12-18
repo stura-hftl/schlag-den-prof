@@ -5,9 +5,10 @@ define(function(require){
 
 	var self = {};
 	var our = {};
+	our.defaultDisplay = 'input';
 
 	self.tick = function(gc) {
-		var display = gc.getState("display", "question");
+		var display = gc.getState("display", our.defaultDisplay);
 
 		if(display == 'question')
 			gc.sendState({display: 'input'});
@@ -35,7 +36,7 @@ define(function(require){
 		var $el = $("<div>");
 		$el.addClass("layer layer-crophud");
 
-		var display = gc.getState("display", "question");
+		var display = gc.getState("display", our.defaultDisplay);
 		var answers = gc.getState("input", {});
 
 		switch(display) {
@@ -80,7 +81,8 @@ define(function(require){
 		}));
 
 		var $btns = $control.find("[data-display]");
-		$btns.filter("[data-display='"+gc.getState("display", "question")+"']").
+		var display = gc.getState("display", our.defaultDisplay);
+		$btns.filter("[data-display='"+display+"']").
 			addClass("btn-primary");
 
 		$btns.click(function(){
@@ -102,7 +104,7 @@ define(function(require){
 	};
 
 	self.drawPlayer = function(gc, player){
-		var display = gc.getState("display", "question");
+		var display = gc.getState("display", our.defaultDisplay);
 
 		if(display != "input"){
 			our.lastInput = null;
