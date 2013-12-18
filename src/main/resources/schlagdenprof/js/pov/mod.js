@@ -33,6 +33,9 @@ define(function(require){
 		(function keyboardShortcuts(){
 			$("body").keyup(function(e) {
 				var gc = GameContext();
+				
+				if($(e.target).is(":input"))
+					return;
 
 				switch(e.which){
 
@@ -84,10 +87,10 @@ define(function(require){
 				
 					default:
 						console.log(e.which);
-						break;
+						return;
 				};
 
-				return false;
+				e.preventDefault();
 
 			});
 		})();
