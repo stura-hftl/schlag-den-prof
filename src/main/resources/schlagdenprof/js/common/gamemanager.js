@@ -35,6 +35,7 @@ define(function(require){
         if(!game || !step) {
 			$("#game-content").html("");
 			$("#game-player-input").html("");
+			our.$lastBeamerElement = null;
 
 		} else {
 			try {
