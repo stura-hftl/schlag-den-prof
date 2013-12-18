@@ -144,6 +144,11 @@ define(function(require){
 		$old.remove();
         $("#mod-control").parents(".panel").show();
 
+		$('html, body').animate({
+			"scrollTop":
+			$("[data-pos='"+step+"'][data-action='jump']").offset().top - 100
+		});
+
 		var Stache = require("stache!html/mod-overlay-control");
 		var game = Games[gc.getType()];
 
