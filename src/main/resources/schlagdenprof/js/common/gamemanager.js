@@ -223,7 +223,7 @@ define(function(require){
 		}
 
 		else {
-			var ticked = game.tick && game.tick(gc);
+			var ticked = game && game.tick && game.tick(gc);
 			var nextStroke = stroke
 
 			if(!ticked) {
