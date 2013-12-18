@@ -19,7 +19,7 @@ define(function(require){
 	our.score = {
 	};
 
-	var updateScore = function(action) {
+	self.updateScore = function(action) {
 		var gc = GameContext();
 
 		var path = "games."+DataBus.get("active")+".state.score.total";
@@ -50,37 +50,6 @@ define(function(require){
 
 	// --- PUBLIC VARS ---
 	self.name = "Score"
-
-
-	// --- STATIC BLOCK ---
-	$(function(){
-		if(window.location.hash == '#mod')
-		$("body").keyup(function(e){
-			var action = "";
-
-			switch(e.which){
-				case 80:
-					action += "p";
-					break;
-
-				case 83:
-					action += "s";
-					break;
-
-				default:
-					return false;
-			}
-
-			if(e.shiftKey)
-				action += "-";
-			else
-				action += "+";
-
-			updateScore(action);
-
-			return false;
-		});
-	});
 
 	// --- PUBLIC FUNCTIONS ---
 	self.drawOverlay = function(args, gc){

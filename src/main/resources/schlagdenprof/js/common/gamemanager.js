@@ -196,13 +196,11 @@ define(function(require){
 
 		}
 
-		else if(beamerShow != 'gameframe') {
-			DataBus.send("beamer.show", "gameframe");
-
-		}
-
 		else if(!stroke || stroke < 1) {
-			DataBus.send("step", 1);
+			if(beamerShow != 'gameframe')
+				DataBus.send("beamer.show", "gameframe");
+			else
+				DataBus.send("step", 1);
 
 		}
 
@@ -213,11 +211,22 @@ define(function(require){
 		}
 
 		else {
-			DataBus.send("beamer.show", "scores");
-			DataBus.send("active", round+1);
-			DataBus.send("step", 0);
+			if(beamerShow == 'gameframe')
+				DataBus.send("beamer.show", "scores");
+			else
+				DataBus.send("beamer.show", "logo");
 
 		}
+	};
+
+	self.nextRound = function() {
+		var gc = GameContext();
+		var round = gc.getRound();
+		DataBus.send("", {
+			active: round + 1,
+			step : 0
+		});
+
 	};
 
     return self;

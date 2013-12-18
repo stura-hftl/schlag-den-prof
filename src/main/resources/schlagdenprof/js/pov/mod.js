@@ -5,6 +5,8 @@ define(function(require){
 	var modDom = require("stache!html/mod");
 	var GamesTabStache = require("stache!html/mod.games");
     var GameManager = require("common/gamemanager");
+    var GameContext = require("common/gamecontext");
+	var ScoreGame = require("games/score");
 
 	return function() {
 		var $modDom = $(modDom());
@@ -30,9 +32,54 @@ define(function(require){
 
 		(function keyboardShortcuts(){
 			$("body").keyup(function(e) {
+				var gc = GameContext();
+
 				switch(e.which){
+
+					case 80: /*P*/
+					case 81: /*Q*/
+						if(e.shiftKey)
+							ScoreGame.updateScore("p-");
+						else
+							ScoreGame.updateScore("p+");
+						break;
+
+					case 87: /*W*/
+					case 79: /*O*/
+						if(e.shiftKey)
+							ScoreGame.updateScore("s-");
+						else
+							ScoreGame.updateScore("s+");
+						break;
+
+					case 186: /*Ö*/
+					case 65: /*A*/
+						DataBus.send("games."+gc.getRound()+".winner", "prof");
+						break;
+
+					case 76: /*L*/
+					case 83: /*S*/
+						DataBus.send("games."+gc.getRound()+".winner", "stud");
+						break;
+
 					case 96: /* NUM 0 */
 						GameManager.tick();
+						break;
+
+					case 108: /* NUM , */
+						GameManager.nextRound();
+						break;
+
+					case 50: /*2*/
+						DataBus.send("beamer.show", "logo");
+						break;
+				
+					case 51: /*3*/
+						DataBus.send("beamer.show", "scores");
+						break;
+				
+					case 52: /*4*/
+						DataBus.send("beamer.show", "gameframe");
 						break;
 				
 					default:
