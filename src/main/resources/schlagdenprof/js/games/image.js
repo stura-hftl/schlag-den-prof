@@ -5,7 +5,7 @@ define(function(require){
 
 	//var Tree = require("common/tree");
 	//var Bindings = require("common/bindings");
-	//var DataBus = require("common/databus");
+	var GameContext = require("common/gamecontext");
 	//var StacheControl = require("stache!html/game.score.control");
 	var StacheBeamer = require("stache!html/game-image-beamer");
 
@@ -32,13 +32,19 @@ define(function(require){
 		var curr = {};
 		var $toHide = our.$container.find("div");
 
+		if(!our.$beamer.is(":visible")) {
+			our.pred = {};
+			$toHide.remove();
+			$toHide = $();
+		};
+
 		$.each(gc.getArgs(), function(i, src){
 			var css = {
 				width: (width-2)+"%",
 				left: ((i*width)+1)+"%"
 			};
 
-			our.$container.height("auto");
+			//our.$container.height("auto");
 
 			var $el;
 			if(our.pred[src]) {
@@ -55,7 +61,7 @@ define(function(require){
 				$el.css(css);
 				$el.append($img);
 
-				$el.css("opacity", 0);
+				$el.animate({opacity: 0},0);
 				our.$container.append($el);
 
 				var plainImage = new Image();
@@ -86,7 +92,7 @@ define(function(require){
 
 		});
 
-		$toHide.hide();
+		$toHide.animate({opacity: 0});
 		our.pred = curr;
 
 		return our.$beamer;
