@@ -27,7 +27,7 @@ define(function(require){
 	};
 
     self.drawBeamer = function(gc){
-		var width = (100 / gc.getArgs().length)-3;
+		var width = (100 / gc.getArgs().length);
 
 		var curr = {};
 		var $toHide = our.$container.find("div");
@@ -35,7 +35,7 @@ define(function(require){
 		$.each(gc.getArgs(), function(i, src){
 			var css = {
 				width: (width-2)+"%",
-				left: (i*width+1)+"%"
+				left: ((i*width)+1)+"%"
 			};
 
 			our.$container.height("auto");
