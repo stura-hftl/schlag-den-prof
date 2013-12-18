@@ -55,20 +55,21 @@ define(function(require){
 				$el.css(css);
 				$el.append($img);
 
-				$el.css("visibility", "hidden");
+				$el.css("opacity", 0);
 				our.$container.append($el);
+
+				var plainImage = new Image();
+				plainImage.src = "/data/"+src;
 
 
 				var height = function(){
-					if($img.height() == 0)
+					if(!plainImage.complete)
 						window.setTimeout(height, 50);
 					else {
-						our.$container.height($el.height());
+						our.$container.height(plainImage.height);
 						our.$container.css("max-height", "100%");
 
-						$el.hide();
-						$el.css("visibility", "visible");
-						$el.fadeIn();
+						$el.animate({opacity: 1})
 
 						//$el.css("height", $el.height());
 						//$el.css("max-height", "100%");
@@ -85,10 +86,7 @@ define(function(require){
 
 		});
 
-		$toHide.fadeOut(function(){
-			$(this).remove();
-		});
-
+		$toHide.hide();
 		our.pred = curr;
 
 		return our.$beamer;
