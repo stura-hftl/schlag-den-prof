@@ -144,10 +144,12 @@ define(function(require){
 		$old.remove();
         $("#mod-control").parents(".panel").show();
 
-		$('html, body').animate({
-			"scrollTop":
-			$("[data-pos='"+step+"'][data-action='jump']").offset().top - 100
-		});
+		var $activeButton = $("[data-pos='"+step+"'][data-action='jump']");
+		if($activeButton.offset())
+			$('html, body').animate({
+				"scrollTop":
+				$activeButton.offset().top - 100
+			},0);
 
 		var Stache = require("stache!html/mod-overlay-control");
 		var game = Games[gc.getType()];
@@ -220,19 +222,24 @@ define(function(require){
 
 		}
 
-		else if(stroke < gc.getGame().sequence.length) {
-			if(!game.tick || !game.tick(gc))
-				DataBus.send("step", gc.getStroke()+1);
-
-		}
-
 		else {
-			if(beamerShow == 'gameframe')
-				DataBus.send("beamer.show", "scores");
-			else
-				DataBus.send("beamer.show", "logo");
+			var ticked = game.tick && game.tick(gc);
+			var nextStroke = stroke
+
+			if(!ticked) {
+				nextStroke++;
+				DataBus.send("step", nextStroke);
+			}
+
+			if(nextStroke > gc.getGame().sequence.length) {
+				if(beamerShow == 'gameframe')
+					DataBus.send("beamer.show", "scores");
+				else
+					DataBus.send("beamer.show", "logo");
+			}
 
 		}
+
 	};
 
 	self.nextRound = function() {
