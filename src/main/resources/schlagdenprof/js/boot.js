@@ -63,7 +63,7 @@ define(function(require){
         var totalStud = 0;
 
         $.each(data.games, function(num, game){
-            var score = parseInt(num);
+            var score = parseInt(num) * 10;
 
             if(game.winner == "prof")
                 totalProf += score;
