@@ -138,7 +138,10 @@ define(function(require){
             }
         });
 		
-        replace($("#mod-control"), $container);
+        //replace($("#mod-control"), $container);
+		var $old = $("#mod-control").children();
+		$("#mod-control").append($container);
+		$old.remove();
         $("#mod-control").parents(".panel").show();
 
 		var Stache = require("stache!html/mod-overlay-control");
