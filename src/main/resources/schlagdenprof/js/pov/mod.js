@@ -70,6 +70,10 @@ define(function(require){
 						break;
 
 					case 108: /* NUM , */
+						GameManager.jumpTo("score");
+						break;
+
+					case 107: /* NUM + */
 						GameManager.nextRound();
 						break;
 

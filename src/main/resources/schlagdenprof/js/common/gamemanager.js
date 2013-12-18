@@ -234,6 +234,19 @@ define(function(require){
 
 	};
 
+	self.jumpTo = function(game) {
+		var gc = GameContext();
+		var gameData = gc.getGame();
+		var stroke = gc.getStroke();
+
+		$.each(gameData.sequence, function(i, config){
+			var pos = i+1;
+			if(pos >= stroke && config[0] == game) {
+				DataBus.send("step", pos);
+			}
+		});
+	};
+
     return self;
 
 
