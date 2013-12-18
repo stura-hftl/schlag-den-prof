@@ -67,13 +67,8 @@ define(function(require){
 
 			if(our.player && Games[gc.getType()].drawPlayer) {
 				var $el = Games[gc.getType()].drawPlayer(gc, our.player);
-				if(!our.$lastPlayerElement || !our.$lastPlayerElement.is($el))
-					$("#game-player-input").html($el);
-				else
-					$("#game-player-input").html("");
-
+				$("#game-player-input").html($el);
 				$("input").select();
-				our.$lastPlayerElement = $el;
 
 			} else {
 				$("#game-player-input").html("");

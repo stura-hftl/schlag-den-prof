@@ -5,6 +5,7 @@ define(function(require){
 	// --- IMPORTS ---
 	var Map = require("common/map");
 	var StacheBeamer = require("stache!html/game-mappick-beamer");
+	var StachePlayer = require("stache!html/game-mappick-player");
 	var StacheMod = require("stache!html/game-mappick-mod");
 
 	// --- STATIC BLOCK ---
@@ -133,9 +134,9 @@ define(function(require){
 			return our.lastInput.$el;
 
 
-		var $input = $(StacheBeamer());
+		var $input = $(StachePlayer());
 		var $canvas = $input.find("#mappick_canvas");
-		$input.filter(".player-hide").hide();
+		$input.find("#mappick-title").text(kwargs.label);
 
 		map = Map($canvas, kwargs.bounds);
 		map.setCenterMarker(player, function(e){
