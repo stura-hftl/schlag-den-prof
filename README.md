@@ -7,7 +7,7 @@ How to build
 1. Requirements
     1. Java (>= 7)
     2. Apache Maven
-    3. bower (with node.js: `npm install bower`)
+    3. bower (with node.js: `npm install -g bower`)
 2. Run `mvn package`.
 3. Built JAR file is located in `target` directory.
 
